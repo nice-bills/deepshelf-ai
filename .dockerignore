@@ -1,0 +1,36 @@
+# .dockerignore
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+.pytest_cache/
+
+# IDE / OS specific
+.idea/
+.vscode/
+*.DS_Store
+
+# Documentation
+*.md
+Advanced Features to Consider.txt
+Book_Recommender_Project_SEC.txt
+
+# Config/Dev files
+pyproject.toml
+requirements-dev.txt
+.python-version
+uv.lock
+
+# Raw Data (processed data should be copied from a build stage)
+data/raw/
+
+# Tests
+tests/

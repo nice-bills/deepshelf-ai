@@ -1,0 +1,13 @@
+# Development and testing dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# For running tests
+pytest-cov
+
+# For UI testing (optional)
+# streamlit-testing-library
+
+# For code formatting and linting
+black
+ruff
+mypy
