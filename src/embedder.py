@@ -34,7 +34,7 @@ def _load_model(model_name: str = config.EMBEDDING_MODEL) -> SentenceTransformer
     # and ensure faster, more reliable deployments.
     try:
         logger.info(f"Loading sentence-transformer model: {model_name}...")
-        model = SentenceTransformer(model_name)
+        model = SentenceTransformer(model_name, device=config.EMBEDDING_DEVICE)
         logger.info("Model loaded successfully.")
         return model
     except Exception as e:

@@ -1,10 +1,11 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch
-streamlit
+torch==2.2.2
+streamlit>=1.40.0
+sentence-transformers==2.5.1
+transformers==4.38.2
 pandas
 numpy
 scikit-learn
-sentence-transformers
 pytest
 pyarrow
 faiss-cpu

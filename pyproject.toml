@@ -6,12 +6,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "faiss-cpu>=1.13.0",
-    "numpy>=2.3.5",
+    "numpy==1.26.4",
     "pandas>=2.3.3",
     "pyarrow>=22.0.0",
     "pytest>=9.0.1",
     "requests>=2.32.5",
     "scikit-learn>=1.7.2",
-    "sentence-transformers>=5.1.2",
-    "streamlit>=1.50.0",
+    "sentence-transformers==2.5.1",
+    "streamlit>=1.40.0",
+    "torch==2.2.2",
+    "transformers==4.38.2",
 ]

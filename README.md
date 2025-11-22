@@ -4,12 +4,71 @@ This project is a Content-Based Book Recommender MVP built using a 100% open-sou
 
 ## ✨ Features
 
-- **Semantic Search**: Instead of selecting a title, describe the book you want to read, and the recommender will find matching books based on semantic meaning.
-- **Content-Based Recommendations**: Finds similar books using semantic meaning, not just keywords.
-- **Modern Web UI**: A clean, card-based interface built with Streamlit that displays book covers and expandable details.
-- **Open-Source Stack**: Built entirely with free and open-source tools.
-- **Modular & Extendable**: Code is organized into logical modules for data processing, embedding, and recommending, making it easy to extend.
-- **Automated Setup**: The Streamlit app can automatically process data and generate embeddings on its first run.
+
+
+-   **Semantic Search**: Instead of selecting a title, describe the book you want to read, and the recommender will find matching books based on semantic meaning.
+
+-   **Content-Based Recommendations**: Finds similar books using semantic meaning, not just keywords.
+
+-   **Modern Web UI**: A clean, card-based interface built with Streamlit that displays book covers and expandable details.
+
+-   **Open-Source Stack**: Built entirely with free and open-source tools.
+
+-   **Modular & Extendable**: Code is organized into logical modules for data processing, embedding, and recommending, making it easy to extend.
+
+-   **Automated Setup**: The Streamlit app can automatically process data and generate embeddings on its first run.
+
+
+
+## 🚀 Recent UI/UX Improvements (November 2025)
+
+
+
+This section details significant UI/UX enhancements and performance optimizations implemented in November 2025 to address critical issues and modernize the application's interface.
+
+
+
+### ✨ Key Improvements:
+
+
+
+-   **Enhanced Card Alignment**:
+
+    -   Implemented a robust Flexbox hierarchy for Streamlit columns and book cards, ensuring consistent card heights regardless of content length (e.g., long titles, varied genre counts, missing descriptions).
+
+    -   Buttons within cards (`View Details`) are now consistently aligned at the bottom using `margin-top: auto;`.
+
+    -   Titles are clamped to 2 lines, authors to 1 line, and genres are constrained to a fixed height to prevent vertical misalignment.
+
+-   **Deprecated Streamlit API Resolution**:
+
+    -   Replaced all instances of `use_container_width=True` with `width="stretch"` for buttons, resolving deprecation warnings and ensuring forward compatibility.
+
+-   **Comprehensive CSS Structure**:
+
+    -   Introduced and refined essential CSS classes (`.book-content`, `.book-info-section`, `.card-actions`, `.book-cover-container`) to support the new Flexbox-driven card layout and enhance visual consistency.
+
+    -   Fixed book cover aspect ratios and improved styling for badges, ratings, and genre pills.
+
+-   **Optimized Main Display Loop**:
+
+    -   Refactored the book display logic to correctly pass unique indices to `render_book_card()`, preventing potential Streamlit key collisions.
+
+    -   Integrated filter application directly into the display loop for dynamic content rendering.
+
+    -   Implemented efficient batch pre-loading of book covers for visible books (up to 12 at a time), significantly improving initial render performance.
+
+-   **Minor Code Quality & UI Polish**:
+
+    -   Ensured empty rating and genre divs (`.rating-stars`, `.genre-container`) maintain their visual space using non-breaking spaces (`&nbsp;`) for consistent alignment.
+
+    -   Centered the search example buttons (`Fantasy`, `Mystery`, `Romance`) for a more balanced and aesthetically pleasing search interface.
+
+    -   Adjustd the margins for the results header (`.results-header`) to improve overall page spacing.
+
+
+
+These updates collectively deliver a more stable, performant, and visually appealing user experience.
 
 ---
 
