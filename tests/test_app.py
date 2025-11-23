@@ -9,6 +9,7 @@ where UI tests would go and how they might be structured.
 
 import unittest
 
+
 class TestStreamlitApp(unittest.TestCase):
 
     def test_app_imports(self):
@@ -18,6 +19,7 @@ class TestStreamlitApp(unittest.TestCase):
         """
         try:
             from src.book_recommender.apps.main_app import main
+
             self.assertTrue(callable(main))
         except ImportError as e:
             self.fail(f"Failed to import the Streamlit app: {e}")
@@ -43,5 +45,6 @@ class TestStreamlitApp(unittest.TestCase):
         """
         self.assertTrue(True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

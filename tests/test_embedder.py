@@ -1,13 +1,16 @@
 # tests/test_embedder.py
 
-import unittest
 import os
-import pandas as pd
-import numpy as np  # Changed from pickle
 import tempfile
+import unittest
+
+import numpy as np  # Changed from pickle
+import pandas as pd
+
+import src.book_recommender.core.config as config
 from src.book_recommender.data.processor import clean_and_prepare_data
 from src.book_recommender.ml.embedder import generate_embeddings
-import src.book_recommender.core.config as config
+
 
 class TestEmbedder(unittest.TestCase):
 
@@ -19,11 +22,11 @@ class TestEmbedder(unittest.TestCase):
 
         # Create dummy data and process it
         sample_data = {
-            'title': ['Book A', 'Book B', 'Book C'],
-            'authors': ['Author A', 'Author B', 'Author C'],
-            'genres': ['Fiction', 'Sci-Fi', 'History'],
-            'description': ['Desc A', 'Desc B', 'Desc C'],
-            'tags': ['tag1', 'tag2', 'tag3']
+            "title": ["Book A", "Book B", "Book C"],
+            "authors": ["Author A", "Author B", "Author C"],
+            "genres": ["Fiction", "Sci-Fi", "History"],
+            "description": ["Desc A", "Desc B", "Desc C"],
+            "tags": ["tag1", "tag2", "tag3"],
         }
         pd.DataFrame(sample_data).to_csv(self.raw_path, index=False)
         clean_and_prepare_data(self.raw_path, self.processed_path)
@@ -34,10 +37,10 @@ class TestEmbedder(unittest.TestCase):
     def test_generate_embeddings(self):
         # Load the processed DataFrame first
         processed_df = pd.read_parquet(self.processed_path)  # Load DataFrame
-        
+
         # Run the function with correct signature
         embeddings = generate_embeddings(processed_df, show_progress_bar=False)  # Pass DataFrame
-        
+
         # Save embeddings
         np.save(self.embeddings_path, embeddings)
 
@@ -53,5 +56,6 @@ class TestEmbedder(unittest.TestCase):
         loaded_embeddings = np.load(self.embeddings_path)  # Use np.load instead of pickle
         self.assertEqual(loaded_embeddings.shape, (expected_rows, expected_dims))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

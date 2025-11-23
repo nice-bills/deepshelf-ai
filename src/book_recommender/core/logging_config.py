@@ -2,12 +2,13 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
+
 def configure_logging(
     log_file: str = "app.log",
     log_level: str = "INFO",
     max_bytes: int = 5 * 1024 * 1024,  # 5 MB
     backup_count: int = 5,
-    log_dir: str = "logs"
+    log_dir: str = "logs",
 ):
     """
     Configures application-wide logging.
@@ -35,9 +36,7 @@ def configure_logging(
             root_logger.removeHandler(handler)
 
     # Formatter
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     # Console Handler
     console_handler = logging.StreamHandler()
@@ -45,16 +44,12 @@ def configure_logging(
     root_logger.addHandler(console_handler)
 
     # File Handler (rotating)
-    file_handler = RotatingFileHandler(
-        log_path,
-        maxBytes=max_bytes,
-        backupCount=backup_count,
-        encoding="utf-8"
-    )
+    file_handler = RotatingFileHandler(log_path, maxBytes=max_bytes, backupCount=backup_count, encoding="utf-8")
     file_handler.setFormatter(formatter)
     root_logger.addHandler(file_handler)
 
     logging.info(f"Logging configured. Level: {log_level}, Log File: {log_path}")
+
 
 if __name__ == "__main__":
     # Example usage if run directly

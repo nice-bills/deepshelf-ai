@@ -1,6 +1,8 @@
 # tests/conftest.py
-import pytest
 import logging
+
+import pytest
+
 
 @pytest.fixture(autouse=True)
 def caplog_for_tests(caplog):

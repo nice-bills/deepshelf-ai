@@ -1,14 +1,17 @@
 # src/data_processor.py
 
-import os
-import logging
-import pandas as pd
 import ast
-from book_recommender.utils import ensure_dir_exists
+import logging
+import os
+
+import pandas as pd
+
 from book_recommender.core.exceptions import DataNotFoundError, FileProcessingError
+from book_recommender.utils import ensure_dir_exists
 
 # Use a module-specific logger
 logger = logging.getLogger(__name__)
+
 
 def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -30,7 +33,7 @@ def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         pd.DataFrame: The processed DataFrame ready for embedding.
-        
+
     Raises:
         ValueError: If the DataFrame is empty after processing.
     """
@@ -38,73 +41,83 @@ def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     logger.info(f"Found columns in CSV: {df.columns.tolist()}")
 
     # Handle potential missing columns
-    expected_cols = ['title', 'authors', 'genres', 'description', 'tags']
+    expected_cols = ["title", "authors", "genres", "description", "tags"]
     for col in expected_cols:
         if col not in df.columns:
-            df[col] = ''
+            df[col] = ""
             logger.warning(f"Column '{col}' not found in CSV. Initializing as empty.")
 
     # Fill NaN values with empty strings
-    df[expected_cols] = df[expected_cols].fillna('')
+    df[expected_cols] = df[expected_cols].fillna("")
 
     # Ensure all text columns are of string type
     for col in expected_cols:
         df[col] = df[col].astype(str)
 
     # --- Ensure 'id' column exists ---
-    if 'book_id' in df.columns:
-        df['id'] = df['book_id'].astype(str)
+    if "book_id" in df.columns:
+        df["id"] = df["book_id"].astype(str)
         logger.info("Using 'book_id' as the unique identifier.")
     else:
         # If no explicit ID column, create one based on DataFrame index
-        df['id'] = df.index.astype(str)
+        df["id"] = df.index.astype(str)
         logger.warning("No 'book_id' column found. Generated 'id' from DataFrame index.")
-    
+
     # Handle string-formatted lists (e.g., "['Fiction', 'Fantasy']")
-    for col in ['genres', 'tags']:
+    for col in ["genres", "tags"]:
         if col in df.columns:
             # Safely evaluate the string representation of a list
             df[col] = df[col].apply(
-                lambda x: ', '.join(ast.literal_eval(x)) if (x.startswith('[') and x.endswith(']')) else x
+                lambda x: ", ".join(ast.literal_eval(x)) if (x.startswith("[") and x.endswith("]")) else x
             )
 
     # Store original case for display, create lowercase for processing
-    df['title_lower'] = df['title'].str.strip().str.lower()
-    df['authors_lower'] = df['authors'].str.strip().str.lower()
+    df["title_lower"] = df["title"].str.strip().str.lower()
+    df["authors_lower"] = df["authors"].str.strip().str.lower()
 
     # Strip whitespace and lowercase other text fields
-    for col in ['genres', 'description', 'tags']:
+    for col in ["genres", "description", "tags"]:
         df[col] = df[col].str.strip().str.lower()
 
     # --- Deduplication ---
     original_rows = len(df)
     # Use the lowercased title for deduplication
-    df.drop_duplicates(subset=['title_lower'], keep='first', inplace=True)
+    df.drop_duplicates(subset=["title_lower"], keep="first", inplace=True)
     new_rows = len(df)
     if new_rows < original_rows:
         logger.info(f"Removed {original_rows - new_rows} duplicate books based on title.")
 
     # Ensure title is not empty
     original_rows = len(df)
-    df.dropna(subset=['title_lower'], inplace=True)
-    df = df[df['title_lower'] != ''].copy()
+    df.dropna(subset=["title_lower"], inplace=True)
+    df = df[df["title_lower"] != ""].copy()
     if len(df) < original_rows:
         logger.warning(f"Dropped {original_rows - len(df)} rows with missing titles.")
 
     if df.empty:
         logger.error("DataFrame is empty after cleaning. No valid book data to process.")
-        raise ValueError("No valid books found after processing. The dataset might be empty or contain only invalid entries.")
+        raise ValueError(
+            "No valid books found after processing. The dataset might be empty or contain only invalid entries."
+        )
 
     # --- Feature Engineering ---
     logger.info("Creating 'combined_text' for embeddings with weighted fields...")
-    df['combined_text'] = (
-        (df['title_lower'] + ' ') * 3 +  # Triple weight for title
-        'by ' + df['authors_lower'] + '. ' +
-        'genres: ' + df['genres'] + '. ' +
-        'description: ' + df['description'] + '. ' +
-        'tags: ' + df['tags']
+    df["combined_text"] = (
+        (df["title_lower"] + " ") * 3  # Triple weight for title
+        + "by "
+        + df["authors_lower"]
+        + ". "
+        + "genres: "
+        + df["genres"]
+        + ". "
+        + "description: "
+        + df["description"]
+        + ". "
+        + "tags: "
+        + df["tags"]
     )
     return df
+
 
 def clean_and_prepare_data(raw_path: str, processed_path: str) -> pd.DataFrame:
     """
@@ -118,10 +131,10 @@ def clean_and_prepare_data(raw_path: str, processed_path: str) -> pd.DataFrame:
     Args:
         raw_path (str): The file path for the raw CSV data.
         processed_path (str): The file path to save the processed Parquet file.
-        
+
     Returns:
         pd.DataFrame: The fully processed DataFrame.
-        
+
     Raises:
         DataNotFoundError: If the file at `raw_path` is not found.
         FileProcessingError: If the CSV file cannot be parsed.
@@ -155,10 +168,12 @@ def clean_and_prepare_data(raw_path: str, processed_path: str) -> pd.DataFrame:
 
     return processed_df
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import argparse
+
     import book_recommender.core.config as config
-    
+
     # When running as a script, basic logging is not configured by default.
     # To see log output, set the LOG_LEVEL environment variable,
     # e.g., `export LOG_LEVEL=INFO` or run with `python -m logging ...`
@@ -168,16 +183,18 @@ if __name__ == '__main__':
     else:
         # Provide a default configuration if the script is run directly
         # and no environment variable is set, to ensure messages are not lost.
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-    
     parser = argparse.ArgumentParser(description="Clean and prepare book data.")
-    parser.add_argument("--raw-path", type=str, default=config.RAW_DATA_PATH,
-                        help="Path to the raw CSV data file.")
-    parser.add_argument("--processed-path", type=str, default=config.PROCESSED_DATA_PATH,
-                        help="Path to save the processed Parquet file.")
+    parser.add_argument("--raw-path", type=str, default=config.RAW_DATA_PATH, help="Path to the raw CSV data file.")
+    parser.add_argument(
+        "--processed-path",
+        type=str,
+        default=config.PROCESSED_DATA_PATH,
+        help="Path to save the processed Parquet file.",
+    )
     args = parser.parse_args()
-    
+
     logger.info("--- Starting Data Processing Standalone Script ---")
     clean_and_prepare_data(raw_path=args.raw_path, processed_path=args.processed_path)
     logger.info("--- Data Processing Finished ---")
