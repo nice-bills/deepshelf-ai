@@ -4,8 +4,8 @@ import plotly.express as px
 import os
 import logging
 from collections import defaultdict
-from book_recommender.ml.feedback import get_all_feedback
-from book_recommender.core.logging_config import configure_logging
+from src.book_recommender.ml.feedback import get_all_feedback
+from src.book_recommender.core.logging_config import configure_logging
 
 # Configure logging at the very beginning
 configure_logging(log_file="analytics.log", log_level=os.getenv("LOG_LEVEL", "INFO"))
@@ -112,3 +112,11 @@ else:
     if st.checkbox("Show Raw Feedback Data"):
         st.subheader("Raw Feedback Data")
         st.dataframe(feedback_df)
+
+
+def main():
+    """Entry point for analytics dashboard"""
+    pass  # Streamlit runs the script automatically
+
+if __name__ == "__main__":
+    main()

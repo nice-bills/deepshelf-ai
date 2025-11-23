@@ -43,6 +43,7 @@ dependencies = [
     "pydantic>=2.5.2",
     "python-dotenv>=1.0.0",
     "plotly>=5.18.0",
+    "slowapi>=0.1.9",
 ]
 
 [project.optional-dependencies]
@@ -72,17 +73,12 @@ bookfinder-analytics = "src.book_recommender.apps.analytics_app:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = [
-    "--verbose",
-    "--cov=src",
-    "--cov-report=html",
-    "--cov-report=term",
-]
+[tool.hatch.build.targets.wheel]
+packages = ["src/book_recommender"]
+
+
+
+
 
 [tool.ruff]
 line-length = 120

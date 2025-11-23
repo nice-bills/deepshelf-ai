@@ -4,21 +4,30 @@ import streamlit as st
 import os
 import json
 from datetime import datetime
-import uuid # New import for session ID
-from book_recommender.data.processor import clean_and_prepare_data
-from book_recommender.core.exceptions import DataNotFoundError, FileProcessingError, ModelLoadError
-from book_recommender.ml.recommender import BookRecommender
-from book_recommender.utils import get_cover_url_multi_source, load_book_covers_batch
-from book_recommender.ml.embedder import generate_embedding_for_query
-import book_recommender.core.config as config
+import uuid  # New import for session ID
+from src.book_recommender.data.processor import clean_and_prepare_data
+from src.book_recommender.core.exceptions import (
+    DataNotFoundError,
+    FileProcessingError,
+    ModelLoadError,
+)
+from src.book_recommender.ml.recommender import BookRecommender
+from src.book_recommender.utils import get_cover_url_multi_source, load_book_covers_batch
+from src.book_recommender.ml.embedder import generate_embedding_for_query
+import src.book_recommender.core.config as config
 import pandas as pd
 import numpy as np
-import logging # Keep logging import for logger instance
-from typing import Optional # New import
-from book_recommender.core.logging_config import configure_logging # Import logging configuration
-from book_recommender.ml.clustering import cluster_books, get_cluster_names # New import
-from book_recommender.ml.explainability import explain_recommendation # New import
-from book_recommender.ml.feedback import save_feedback # New import
+import logging  # Keep logging import for logger instance
+from typing import Optional  # New import
+from src.book_recommender.core.logging_config import (
+    configure_logging,
+)  # Import logging configuration
+from src.book_recommender.ml.clustering import (
+    cluster_books,
+    get_cluster_names,
+)  # New import
+from src.book_recommender.ml.explainability import explain_recommendation  # New import
+from src.book_recommender.ml.feedback import save_feedback  # New import
 
 # Configure logging at the very beginning of the app
 configure_logging(log_file="app.log", log_level=os.getenv("LOG_LEVEL", "INFO"))
@@ -341,10 +350,12 @@ def load_recommender() -> BookRecommender:
         book_data = pd.read_parquet(config.PROCESSED_DATA_PATH)
         embeddings = np.load(config.EMBEDDINGS_PATH)
     else:
-        from book_recommender.ml.embedder import generate_embeddings
-        
+        from src.book_recommender.ml.embedder import generate_embeddings
+
         if not os.path.exists(config.RAW_DATA_PATH):
-            raise DataNotFoundError(f"Raw data file not found at: {config.RAW_DATA_PATH}")
+            raise DataNotFoundError(
+                f"Raw data file not found at: {config.RAW_DATA_PATH}"
+            )
 
         book_data = clean_and_prepare_data(config.RAW_DATA_PATH, config.PROCESSED_DATA_PATH)
         embeddings = generate_embeddings(book_data, model_name=config.EMBEDDING_MODEL, show_progress_bar=False)
@@ -493,7 +504,7 @@ def render_book_card(rec, index, cover_url, query_text: Optional[str] = None):
     # Explanation expander (only for search results)
     if query_text and 'similarity' in rec: # Only show explanation if it's a search result and has similarity
         with st.expander("💡 Why this recommendation?"):
-            from book_recommender.ml.explainability import explain_recommendation, get_contribution_scores # Re-import if not already
+            from src.book_recommender.ml.explainability import explain_recommendation, get_contribution_scores # Re-import if not already
             explanation = explain_recommendation(
                 query_text=query_text,
                 recommended_book=rec,
@@ -770,3 +781,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def main():
+    """Entry point for the Streamlit app"""
+    pass  # Streamlit will run the script automatically

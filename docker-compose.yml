@@ -2,47 +2,35 @@ version: '3.8'
 
 services:
   streamlit:
-    build:
-      context: .
-      dockerfile: streamlit.Dockerfile
+    build: .
     ports:
       - "8501:8501"
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
     environment:
-      - ENVIRONMENT=development
-      - LOG_LEVEL=INFO # Example: INFO, DEBUG
-      - EMBEDDING_MODEL=all-MiniLM-L6-v2 # Can be overridden by .env
-      - EMBEDDING_DEVICE=cpu # Can be overridden by .env
-    command: streamlit run src/book_recommender/apps/main_app.py
-
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    command: python -m streamlit run src/book_recommender/apps/main_app.py
+                                
   api:
-    build:
-      context: .
-      dockerfile: api.Dockerfile
+    build: .
     ports:
       - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
     environment:
-      - ENVIRONMENT=development
-      - LOG_LEVEL=INFO # Example: INFO, DEBUG
-      - EMBEDDING_MODEL=all-MiniLM-L6-v2 # Can be overridden by .env
-      - EMBEDDING_DEVICE=cpu # Can be overridden by .env
-    command: uvicorn src.book_recommender.api.main:app --host 0.0.0.0 --reload
-
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    command: python -m uvicorn src.book_recommender.api.main:app --host 0.0.0.0 --port 8000
+                                
   analytics:
-    build:
-      context: .
-      dockerfile: analytics.Dockerfile
+    build: .
     ports:
       - "8502:8502"
     volumes:
       - ./data:/app/data
-      - ./logs:/app/logs
     environment:
-      - ENVIRONMENT=development
-      - LOG_LEVEL=INFO # Example: INFO, DEBUG
-    command: streamlit run src/book_recommender/apps/analytics_app.py --server.port=8502
+      - PYTHONPATH=/app
+    command: python -m streamlit run src/book_recommender/apps/analytics_app.py --server.port=8502

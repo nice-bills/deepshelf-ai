@@ -6,8 +6,8 @@ import os
 import logging
 import pandas as pd
 import numpy as np
-from book_recommender.core.exceptions import DataNotFoundError
-import book_recommender.core.config as config
+from src.book_recommender.core.exceptions import DataNotFoundError
+import src.book_recommender.core.config as config
 
 # Use a module-specific logger
 logger = logging.getLogger(__name__)
@@ -138,8 +138,8 @@ if __name__ == '__main__':
 
     # Add project root to path to allow absolute imports
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from book_recommender.core import config as config_main
-    from book_recommender.core.exceptions import DataNotFoundError
+    from src.book_recommender.core import config as config_main
+    from src.book_recommender.core.exceptions import DataNotFoundError
 
     # Example usage of the recommender
     

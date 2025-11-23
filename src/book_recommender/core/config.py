@@ -9,6 +9,7 @@ load_dotenv() # Load environment variables from .env file
 
 # --- File and Directory Paths ---
 # Base directory of the project
+# Path structure: config.py -> core/ -> book_recommender/ -> src/ -> project_root/
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 # Data directories
@@ -47,7 +48,7 @@ APP_VERSION = "0.1.0"
 FALLBACK_COVER_URL = "https://placehold.co/200x300/667eea/white?text=No+Cover"
 
 
-# --- Data/Model Versioning (Future Consideration) ---
+# --- Data/Model Versioning (Future Consideration)
 # For production systems, consider implementing a robust data and model
 # versioning system (e.g., DVC - Data Version Control) to track changes
 # to processed data and generated embeddings. For this MVP, manual

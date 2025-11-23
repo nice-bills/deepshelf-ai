@@ -53,8 +53,9 @@ class TestDataProcessor(unittest.TestCase):
 
     def test_missing_raw_data_file(self):
         """Test that DataNotFoundError is raised if the raw data file is missing."""
-        with self.assertRaises(DataNotFoundError):
-            clean_and_prepare_data("non_existent_file.csv", self.processed_path)
+        with self.assertRaises(DataNotFoundError) as cm:
+            clean_and_prepare_data(raw_path="non_existent_file.csv", processed_path=self.processed_path)
+        self.assertIsInstance(cm.exception, DataNotFoundError)
 
     def test_empty_dataframe(self):
         """Test that a ValueError is raised if the dataframe is empty after cleaning."""
@@ -62,8 +63,9 @@ class TestDataProcessor(unittest.TestCase):
         empty_df = pd.DataFrame(columns=['title', 'authors', 'genres', 'description', 'tags'])
         empty_df.to_csv(self.raw_path, index=False)
         
-        with self.assertRaises(ValueError):
-            clean_and_prepare_data(self.raw_path, self.processed_path)
+        with self.assertRaises(ValueError) as cm:
+            clean_and_prepare_data(raw_path=self.raw_path, processed_path=self.processed_path)
+        self.assertIsInstance(cm.exception, ValueError)
             
     def test_malformed_csv(self):
         """Test that FileProcessingError is raised for a malformed CSV."""
@@ -71,8 +73,9 @@ class TestDataProcessor(unittest.TestCase):
         with open(self.raw_path, 'w') as f:
             f.write('title,authors\n"Book","Author"\n"Another Book') # Missing closing quote
             
-        with self.assertRaises(FileProcessingError):
-            clean_and_prepare_data(self.raw_path, self.processed_path)
+        with self.assertRaises(FileProcessingError) as cm:
+            clean_and_prepare_data(raw_path=self.raw_path, processed_path=self.processed_path)
+        self.assertIsInstance(cm.exception, FileProcessingError)
 
 if __name__ == '__main__':
     unittest.main()

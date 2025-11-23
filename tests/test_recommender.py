@@ -13,6 +13,7 @@ class TestRecommender(unittest.TestCase):
     def setUp(self):
         # Create dummy data directly in memory
         self.book_data = pd.DataFrame({
+            'id': ['1', '2', '3', '4', '5'],
             'title': ['Alpha Book', 'Beta Book', 'Gamma Book', 'Delta Book', 'Epsilon Book'],
             'title_lower': ['alpha book', 'beta book', 'gamma book', 'delta book', 'epsilon book'],
             'authors': ['Auth1', 'Auth2', 'Auth3', 'Auth1', 'Auth5'],

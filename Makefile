@@ -25,13 +25,13 @@ clean:
 	rm -rf .pytest_cache .coverage htmlcov dist build *.egg-info
 
 run-web:
-	streamlit run src/book_recommender/apps/main_app.py
+	PYTHONPATH=. python -m streamlit run src/book_recommender/apps/main_app.py
 
 run-api:
-	uvicorn src.book_recommender.api.main:app --reload
+	PYTHONPATH=. python -m uvicorn src.book_recommender.api.main:app --reload
 
 run-analytics:
-	streamlit run src/book_recommender/apps/analytics_app.py --server.port=8502
+	PYTHONPATH=. python -m streamlit run src/book_recommender/apps/analytics_app.py --server.port=8502
 
 docker-build:
 	docker build -t bookfinder-ai:latest .

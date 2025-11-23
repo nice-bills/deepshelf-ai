@@ -4,13 +4,23 @@ import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-from book_recommender.ml.recommender import BookRecommender
-import book_recommender.core.config as config
-from book_recommender.core.exceptions import DataNotFoundError
-from book_recommender.ml.embedder import _load_model as embedder_load_model # Alias to avoid name conflict
-from book_recommender.ml.clustering import cluster_books, get_cluster_names # New import for clustering
+from src.book_recommender.ml.recommender import BookRecommender
+import src.book_recommender.core.config as config
+from src.book_recommender.core.exceptions import DataNotFoundError
+from src.book_recommender.ml.embedder import (
+    _load_model as embedder_load_model,
+)  # Alias to avoid name conflict
+from src.book_recommender.ml.clustering import (
+    cluster_books,
+    get_cluster_names,
+)  # New import for clustering
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 logger = logging.getLogger(__name__)
+
+limiter = Limiter(key_func=get_remote_address, default_limits=["10/minute"])
+
 
 @lru_cache(maxsize=1)
 def get_recommender() -> BookRecommender:

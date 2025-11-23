@@ -733,3 +733,636 @@ book_recommender.core.exceptions.DataNotFoundError: Raw data file not found at: 
 2025-11-23 08:42:36,130 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
 2025-11-23 08:42:36,136 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
 2025-11-23 08:42:36,136 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 11:39:04,390 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 11:39:11,278 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpttivq3fl\test_books.csv...
+2025-11-23 11:39:12,725 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 11:39:12,725 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 11:39:12,725 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 11:39:13,903 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 11:39:15,517 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 11:39:15,517 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 11:39:15,524 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpttivq3fl\test_books_cleaned.parquet...
+2025-11-23 11:39:24,560 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 11:39:25,048 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmptiia3oa9\test_books.csv...
+2025-11-23 11:39:25,081 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 11:39:25,081 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 11:39:25,081 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 11:39:25,090 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 11:39:25,098 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 11:39:25,115 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpfxe_oolu\test_books.csv...
+2025-11-23 11:39:25,274 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpfxe_oolu\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 11:39:26,537 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 11:39:26,561 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpxyrjt8_y\test_books.csv...
+2025-11-23 11:39:26,589 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 11:39:26,591 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 11:39:26,591 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 11:39:26,591 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 11:39:26,597 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 11:39:26,597 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpxyrjt8_y\test_books_cleaned.parquet...
+2025-11-23 11:39:26,608 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 11:39:26,696 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 11:39:26,703 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 11:39:36,834 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 11:39:36,836 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 11:39:39,777 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 11:39:39,920 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 11:39:39,920 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 11:39:39,925 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 11:39:39,925 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 11:39:39,925 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 11:39:41,109 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 11:39:41,904 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 11:39:41,904 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 11:39:41,922 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 11:39:43,515 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 11:39:43,517 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 11:39:43,533 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 13:09:28,050 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 13:09:29,172 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp67342daq\test_books.csv...
+2025-11-23 13:09:29,266 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 13:09:29,268 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 13:09:29,268 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 13:09:29,326 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 13:09:29,374 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 13:09:29,375 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 13:09:29,380 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp67342daq\test_books_cleaned.parquet...
+2025-11-23 13:09:30,302 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 13:09:30,332 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpg7gonvxl\test_books.csv...
+2025-11-23 13:09:30,339 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 13:09:30,339 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 13:09:30,339 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 13:09:30,343 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 13:09:30,349 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 13:09:30,378 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpot_5xkv1\test_books.csv...
+2025-11-23 13:09:30,396 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpot_5xkv1\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 13:09:30,624 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 13:09:30,644 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp_uzbuy57\test_books.csv...
+2025-11-23 13:09:30,652 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 13:09:30,652 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 13:09:30,652 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 13:09:30,656 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 13:09:30,664 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 13:09:30,665 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp_uzbuy57\test_books_cleaned.parquet...
+2025-11-23 13:09:30,706 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 13:09:30,714 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 13:09:30,714 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 13:09:30,714 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE85927410>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 99b11119-f1f9-4c10-860e-b00c617d69a8)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:30,714 - huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+2025-11-23 13:09:31,724 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE029B7C80>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 693ebf06-e757-44d4-8851-c6e582580929)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:31,724 - huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+2025-11-23 13:09:33,728 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE857EC290>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 75c890d2-0e8c-486b-9265-0dddbdf98be6)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:33,728 - huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+2025-11-23 13:09:37,730 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE857EC6B0>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 55b0756a-7cc4-4902-98a2-2943ca14045c)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:37,730 - huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+2025-11-23 13:09:45,736 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE029B7C20>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 173e252b-78b6-4b47-bbc9-e1759ecbcb89)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:45,736 - huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 5/5].
+2025-11-23 13:09:53,738 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE85762BA0>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: dc16f327-85e3-4a1d-b0a0-e36c9dcb1572)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json
+2025-11-23 13:09:53,738 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE85761CA0>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 4085a5c9-578e-425d-bb6b-9cde07a6c300)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json
+2025-11-23 13:09:53,738 - huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+2025-11-23 13:09:54,749 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE85760BF0>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 1c7b0301-5821-4693-acbb-ddacf1022f8b)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json
+2025-11-23 13:09:54,749 - huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+2025-11-23 13:09:56,773 - huggingface_hub.utils._http - WARNING - '(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DE857EC710>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 60f7d773-e15a-498c-8739-bf674eecaa4f)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json
+2025-11-23 13:09:56,774 - huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+2025-11-23 13:10:58,647 - huggingface_hub.utils._http - WARNING - '(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)')))"), '(Request ID: 7f52f826-89ce-40e1-8f76-b564dc76894a)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json
+2025-11-23 13:10:58,648 - huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+2025-11-23 13:11:17,268 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 13:11:17,268 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 13:11:27,813 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 13:11:34,352 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 13:11:34,352 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 13:11:34,352 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 13:11:34,352 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 13:11:34,352 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 13:11:34,876 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 13:11:34,876 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 13:11:34,876 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 13:11:35,021 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 13:11:35,894 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 13:11:35,894 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 13:11:35,894 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 14:42:48,408 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:42:52,794 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 9870 vectors.
+2025-11-23 14:42:52,827 - __main__ - INFO - Generating/Loading cluster data for Streamlit app...
+2025-11-23 14:42:52,839 - src.book_recommender.ml.clustering - INFO - Starting K-Means clustering with 20 clusters...
+2025-11-23 14:43:51,347 - src.book_recommender.ml.clustering - INFO - K-Means clustering completed.
+2025-11-23 14:43:51,391 - src.book_recommender.ml.clustering - INFO - Generating descriptive names for clusters...
+2025-11-23 14:43:51,800 - src.book_recommender.ml.clustering - INFO - Cluster names generated.
+2025-11-23 14:43:51,802 - __main__ - INFO - Cluster data generated/loaded and cached for Streamlit app.
+2025-11-23 14:43:52,440 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:43:52,440 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:43:52,555 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 14:43:52,555 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 14:43:52,557 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 14:43:52,557 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 14:43:55,123 - src.book_recommender.utils - INFO - Found Google Books cover for 'Murder on the Orient Express (Hercule Poirot, #10)'
+2025-11-23 14:43:55,123 - src.book_recommender.utils - INFO - Found Google Books cover for 'Murder on the Orient Express (Hercule Poirot, #10)'
+2025-11-23 14:43:55,123 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
+2025-11-23 14:43:55,139 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America'
+2025-11-23 14:43:55,123 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
+2025-11-23 14:43:55,148 - src.book_recommender.utils - INFO - Found Google Books cover for 'A Time to Kill (Jake Brigance, #1)'
+2025-11-23 14:43:55,139 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America'
+2025-11-23 14:43:55,148 - src.book_recommender.utils - INFO - Found Google Books cover for 'A Time to Kill (Jake Brigance, #1)'
+2025-11-23 14:43:55,448 - src.book_recommender.utils - INFO - Found Google Books cover for 'In Cold Blood'
+2025-11-23 14:43:55,451 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Kicked the Hornet's Nest (Millennium, #3)'
+2025-11-23 14:43:55,451 - src.book_recommender.utils - INFO - Found Google Books cover for 'Crime and Punishment'
+2025-11-23 14:43:55,454 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Da Vinci Code (Robert Langdon, #2)'
+2025-11-23 14:43:55,448 - src.book_recommender.utils - INFO - Found Google Books cover for 'In Cold Blood'
+2025-11-23 14:43:55,451 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Kicked the Hornet's Nest (Millennium, #3)'
+2025-11-23 14:43:55,451 - src.book_recommender.utils - INFO - Found Google Books cover for 'Crime and Punishment'
+2025-11-23 14:43:55,454 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Da Vinci Code (Robert Langdon, #2)'
+2025-11-23 14:43:56,250 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Silence of the Lambs  (Hannibal Lecter, #2)'
+2025-11-23 14:43:56,250 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Silence of the Lambs  (Hannibal Lecter, #2)'
+2025-11-23 14:43:57,038 - src.book_recommender.utils - INFO - Found Google Books cover for 'Midnight in the Garden of Good and Evil'
+2025-11-23 14:43:57,038 - src.book_recommender.utils - INFO - Found Google Books cover for 'Midnight in the Garden of Good and Evil'
+2025-11-23 14:44:05,730 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:44:05,749 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 14:44:05,752 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 14:44:08,173 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 14:44:08,173 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A fantasy adventure with magic and dragons...'
+2025-11-23 14:44:08,407 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:44:08,448 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A heartwarming romance set in a small town...'
+2025-11-23 14:44:10,307 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 14:44:10,324 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A heartwarming romance set in a small town...'
+2025-11-23 14:44:24,996 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:44:26,232 - src.book_recommender.utils - INFO - Found Google Books cover for 'Two Gentlemen Sharing: A Novel'
+2025-11-23 14:44:26,241 - src.book_recommender.utils - INFO - Found Google Books cover for 'Past, Present, and Promises'
+2025-11-23 14:44:26,310 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Comfort of Strangers'
+2025-11-23 14:44:26,419 - src.book_recommender.utils - INFO - Found Google Books cover for 'Our Town'
+2025-11-23 14:44:26,476 - src.book_recommender.utils - INFO - Found Google Books cover for 'On Dublin Street (On Dublin Street, #1)'
+2025-11-23 14:44:26,485 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Ballad of the Sad Café and Other Stories'
+2025-11-23 14:44:27,791 - src.book_recommender.utils - INFO - Found Google Books cover for 'Less (Arthur Less, #1)'
+2025-11-23 14:44:28,669 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,693 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Comfort of Strangers' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,701 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Past, Present, and Promises' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,715 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Ballad of the Sad Café and Other Stories' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,727 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Our Town' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,740 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Two Gentlemen Sharing: A Novel' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,750 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'On Dublin Street (On Dublin Street, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,759 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Last Valentine' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,764 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Fallen in Love (Fallen, #3.5)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,772 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'A Town Like Alice' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,772 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:44:28,791 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Love Walked In (Love Walked In, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,044 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:45:07,089 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,099 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Comfort of Strangers' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,160 - src.book_recommender.ml.feedback - INFO - Feedback saved: positive for 'The Comfort of Strangers'
+2025-11-23 14:45:07,190 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Past, Present, and Promises' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,252 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Ballad of the Sad Café and Other Stories' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,279 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Our Town' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,295 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Two Gentlemen Sharing: A Novel' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,315 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'On Dublin Street (On Dublin Street, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,332 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Last Valentine' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,356 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Fallen in Love (Fallen, #3.5)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,387 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'A Town Like Alice' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,427 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:07,447 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Love Walked In (Love Walked In, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,125 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 14:45:42,170 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,184 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Comfort of Strangers' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,197 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Past, Present, and Promises' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,207 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Ballad of the Sad Café and Other Stories' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,227 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Our Town' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,267 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Two Gentlemen Sharing: A Novel' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,338 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'On Dublin Street (On Dublin Street, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,363 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Last Valentine' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,412 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Fallen in Love (Fallen, #3.5)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,443 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'A Town Like Alice' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,463 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,549 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 14:45:42,621 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Love Walked In (Love Walked In, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:31:24,217 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:31:24,955 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 9870 vectors.
+2025-11-23 17:31:24,970 - __main__ - INFO - Generating/Loading cluster data for Streamlit app...
+2025-11-23 17:31:24,970 - src.book_recommender.ml.clustering - INFO - Starting K-Means clustering with 20 clusters...
+2025-11-23 17:31:39,629 - src.book_recommender.ml.clustering - INFO - K-Means clustering completed.
+2025-11-23 17:31:39,630 - src.book_recommender.ml.clustering - INFO - Generating descriptive names for clusters...
+2025-11-23 17:31:39,810 - src.book_recommender.ml.clustering - INFO - Cluster names generated.
+2025-11-23 17:31:39,812 - __main__ - INFO - Cluster data generated/loaded and cached for Streamlit app.
+2025-11-23 17:31:42,370 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Da Vinci Code (Robert Langdon, #2)'
+2025-11-23 17:31:42,464 - src.book_recommender.utils - INFO - Found Google Books cover for 'In Cold Blood'
+2025-11-23 17:31:42,572 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
+2025-11-23 17:31:42,577 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America'
+2025-11-23 17:31:42,850 - src.book_recommender.utils - INFO - Found Google Books cover for 'A Time to Kill (Jake Brigance, #1)'
+2025-11-23 17:31:42,901 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Girl Who Kicked the Hornet's Nest (Millennium, #3)'
+2025-11-23 17:31:42,962 - src.book_recommender.utils - INFO - Found Google Books cover for 'Murder on the Orient Express (Hercule Poirot, #10)'
+2025-11-23 17:31:43,134 - src.book_recommender.utils - INFO - Found Google Books cover for 'Crime and Punishment'
+2025-11-23 17:31:44,524 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Silence of the Lambs  (Hannibal Lecter, #2)'
+2025-11-23 17:31:44,712 - src.book_recommender.utils - INFO - Found Google Books cover for 'Midnight in the Garden of Good and Evil'
+2025-11-23 17:32:06,398 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:32:06,398 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:32:06,419 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 17:32:06,419 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 17:32:06,419 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 17:32:06,419 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 17:32:10,788 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:32:10,862 - src.book_recommender.ml.embedder - INFO - Loading sentence-transformer model: all-MiniLM-L6-v2...
+2025-11-23 17:32:10,866 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-11-23 17:32:19,949 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 17:32:19,949 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A psychological thriller with unexpected twists...'
+2025-11-23 17:32:20,208 - src.book_recommender.ml.embedder - INFO - Model loaded successfully.
+2025-11-23 17:32:20,208 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A psychological thriller with unexpected twists...'
+2025-11-23 17:32:45,771 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:33:11,572 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,584 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,602 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,624 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,693 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,720 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,737 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,779 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,808 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,826 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,844 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Crime' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:11,857 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Dark Rooms' based on query 'A psychological thriller with unexpected twists'
+2025-11-23 17:33:28,188 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:33:28,228 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A fantasy adventure with magic and dragons...'
+2025-11-23 17:33:28,485 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:33:30,337 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:33:30,390 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A fantasy adventure with magic and dragons...'
+2025-11-23 17:33:30,596 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:33:50,578 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Dragon and the Princess' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,600 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Dragon Wing (The Death Gate Cycle, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,610 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Dealing with Dragons (Enchanted Forest Chronicles, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,616 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Color of Magic (Discworld, #1; Rincewind, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,640 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Book of Dragons' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,653 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Uprooted' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,664 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Dragon Keeper (Rain Wild Chronicles, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,682 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Dragon's Bait' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,713 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Stone Seekers (Dragon Hunters, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,731 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Bentwhistle the Dragon in a Threat from the Past' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,746 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Dreamer (Chronicles of Marithe, #1)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:33:50,768 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Tehanu (Earthsea Cycle, #4)' based on query 'A fantasy adventure with magic and dragons'
+2025-11-23 17:34:34,739 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:34:34,773 - src.book_recommender.ml.embedder - INFO - Generating embedding for query: 'A heartwarming romance set in a small town...'
+2025-11-23 17:34:35,006 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:34:37,844 - src.book_recommender.utils - INFO - Found Google Books cover for 'Past, Present, and Promises'
+2025-11-23 17:34:37,933 - src.book_recommender.utils - INFO - Found Google Books cover for 'Two Gentlemen Sharing: A Novel'
+2025-11-23 17:34:38,123 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Comfort of Strangers'
+2025-11-23 17:34:38,145 - src.book_recommender.utils - INFO - Found Google Books cover for 'Fallen in Love (Fallen, #3.5)'
+2025-11-23 17:34:38,177 - src.book_recommender.utils - INFO - Found Google Books cover for 'On Dublin Street (On Dublin Street, #1)'
+2025-11-23 17:34:38,335 - src.book_recommender.utils - INFO - Found Google Books cover for 'Our Town'
+2025-11-23 17:34:38,530 - src.book_recommender.utils - INFO - Found Google Books cover for 'The Ballad of the Sad Café and Other Stories'
+2025-11-23 17:34:39,286 - src.book_recommender.utils - INFO - Found Google Books cover for 'Less (Arthur Less, #1)'
+2025-11-23 17:34:40,798 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:40,884 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Comfort of Strangers' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:40,938 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Past, Present, and Promises' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:40,992 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Ballad of the Sad Café and Other Stories' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,033 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Our Town' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,073 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Two Gentlemen Sharing: A Novel' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,103 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'On Dublin Street (On Dublin Street, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,127 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Last Valentine' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,145 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Fallen in Love (Fallen, #3.5)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,175 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'A Town Like Alice' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,203 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:34:41,238 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Love Walked In (Love Walked In, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,504 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:39:22,553 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,724 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Hometown Girl at Heart (Hometown, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,744 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Comfort of Strangers' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,754 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Past, Present, and Promises' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,771 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Ballad of the Sad Café and Other Stories' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,789 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Our Town' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,804 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Two Gentlemen Sharing: A Novel' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,823 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'On Dublin Street (On Dublin Street, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,836 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'The Last Valentine' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,847 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Fallen in Love (Fallen, #3.5)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,851 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'A Town Like Alice' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,867 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Less (Arthur Less, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:39:22,884 - src.book_recommender.ml.explainability - INFO - Generating explanation for 'Love Walked In (Love Walked In, #1)' based on query 'A heartwarming romance set in a small town'
+2025-11-23 17:55:48,634 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 17:55:51,215 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpow1pnh7y\test_books.csv...
+2025-11-23 17:55:51,388 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 17:55:51,388 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 17:55:51,388 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 17:55:51,438 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 17:55:51,494 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 17:55:51,494 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 17:55:51,498 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpow1pnh7y\test_books_cleaned.parquet...
+2025-11-23 17:55:52,424 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 17:55:52,456 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp431jj_cx\test_books.csv...
+2025-11-23 17:55:52,760 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 17:55:52,760 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 17:55:52,760 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 17:55:52,760 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 17:55:52,772 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 17:55:52,780 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpr4mcz2qy\test_books.csv...
+2025-11-23 17:55:52,803 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpr4mcz2qy\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 17:55:52,966 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 17:55:52,983 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp_ex4laxn\test_books.csv...
+2025-11-23 17:55:52,986 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 17:55:52,987 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 17:55:52,987 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 17:55:52,989 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 17:55:52,992 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 17:55:52,993 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp_ex4laxn\test_books_cleaned.parquet...
+2025-11-23 17:55:52,997 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 17:55:53,001 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 17:55:57,850 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 17:55:59,726 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 17:55:59,726 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 17:55:59,732 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 17:55:59,732 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 17:55:59,732 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 17:55:59,979 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 17:55:59,979 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 17:55:59,979 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 17:55:59,990 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 17:56:00,787 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 17:56:00,797 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 17:56:00,805 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 18:00:43,860 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 18:00:44,942 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpy9orisae\test_books.csv...
+2025-11-23 18:00:44,948 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 18:00:44,948 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 18:00:44,948 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 18:00:44,950 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 18:00:44,957 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 18:00:44,957 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 18:00:44,959 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpy9orisae\test_books_cleaned.parquet...
+2025-11-23 18:00:44,993 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 18:00:45,003 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp_yjdxv4k\test_books.csv...
+2025-11-23 18:00:45,016 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 18:00:45,016 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 18:00:45,016 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 18:00:45,016 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 18:00:45,016 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 18:00:45,041 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpl7n63ena\test_books.csv...
+2025-11-23 18:00:45,043 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpl7n63ena\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 18:00:45,190 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 18:00:45,206 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmprvrgmshg\test_books.csv...
+2025-11-23 18:00:45,209 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 18:00:45,209 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 18:00:45,209 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 18:00:45,211 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 18:00:45,219 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 18:00:45,221 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmprvrgmshg\test_books_cleaned.parquet...
+2025-11-23 18:00:45,279 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 18:00:45,285 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 18:00:47,207 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 18:00:47,225 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 18:00:47,227 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 18:00:47,229 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 18:00:47,234 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 18:00:47,236 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 18:00:47,324 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 18:00:47,324 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 18:00:47,324 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 18:00:47,332 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 18:00:47,334 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 18:00:47,339 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 18:00:47,339 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 18:00:47,339 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 18:00:47,339 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:04:28,484 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:04:29,299 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:04:43,219 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpo_18ptkc\test_books.csv...
+2025-11-23 19:04:43,219 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp36fc5sxs\test_books.csv...
+2025-11-23 19:04:44,681 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:04:44,681 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:04:44,681 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:04:44,681 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:44,681 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:46,135 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:46,135 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:46,373 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:04:46,373 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:04:46,373 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:04:46,375 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:04:46,375 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpo_18ptkc\test_books_cleaned.parquet...
+2025-11-23 19:04:46,375 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp36fc5sxs\test_books_cleaned.parquet...
+2025-11-23 19:04:48,415 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:04:48,416 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:04:48,529 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpeem4xjrn\test_books.csv...
+2025-11-23 19:04:48,530 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpoaz7iv1u\test_books.csv...
+2025-11-23 19:04:48,548 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:04:48,548 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:04:48,549 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:48,551 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:04:48,553 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:04:48,553 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:48,553 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:48,560 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:04:48,562 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:48,572 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:04:48,572 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmptww9d09q\test_books.csv...
+2025-11-23 19:04:48,584 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpmvd1niel\test_books.csv...
+2025-11-23 19:04:48,653 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmptww9d09q\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:04:48,653 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpmvd1niel\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:04:50,005 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 19:04:50,027 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpygfu2t_n\test_books.csv...
+2025-11-23 19:04:50,027 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpncv0x1ff\test_books.csv...
+2025-11-23 19:04:50,054 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:04:50,054 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:04:50,054 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:50,057 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:50,065 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:04:50,067 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpncv0x1ff\test_books_cleaned.parquet...
+2025-11-23 19:04:50,073 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:04:50,121 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:04:50,121 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:04:50,122 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:04:50,125 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:04:50,131 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:04:50,133 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpygfu2t_n\test_books_cleaned.parquet...
+2025-11-23 19:04:50,137 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:04:50,198 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:04:50,198 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:05:06,273 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 19:05:06,273 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 19:05:06,570 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:05:06,570 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:05:06,576 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:05:06,585 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:05:06,588 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:05:06,590 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:05:06,590 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:05:06,593 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:05:06,596 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:05:06,599 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:05:06,997 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:05:06,997 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:05:06,998 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:05:06,998 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:05:06,998 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:05:06,998 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:05:07,006 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,006 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,007 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:05:07,007 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:05:07,011 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,012 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:05:07,013 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,013 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:05:07,020 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,020 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:05:07,022 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:05:07,022 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:07:56,018 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:07:56,134 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:07:58,084 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpaodq640x\test_books.csv...
+2025-11-23 19:07:58,086 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmplrul_x32\test_books.csv...
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,090 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,093 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,095 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,098 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:07:58,098 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:07:58,100 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpaodq640x\test_books_cleaned.parquet...
+2025-11-23 19:07:58,102 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:07:58,102 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:07:58,102 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmplrul_x32\test_books_cleaned.parquet...
+2025-11-23 19:07:58,629 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:07:58,629 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:07:58,645 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp9fwvflwd\test_books.csv...
+2025-11-23 19:07:58,645 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpnrs1cp1e\test_books.csv...
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:07:58,648 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:07:58,662 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpq5url0v1\test_books.csv...
+2025-11-23 19:07:58,662 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmptu0r83gu\test_books.csv...
+2025-11-23 19:07:58,677 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmptu0r83gu\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:07:58,677 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpq5url0v1\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:07:58,841 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 19:07:58,849 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 19:07:58,853 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpb40opaqt\test_books.csv...
+2025-11-23 19:07:58,855 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:07:58,855 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,855 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,858 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,866 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:07:58,868 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpsdtugbvb\test_books.csv...
+2025-11-23 19:07:58,868 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpb40opaqt\test_books_cleaned.parquet...
+2025-11-23 19:07:58,873 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:07:58,873 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:07:58,873 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:07:58,873 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:07:58,877 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:07:58,880 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:07:58,880 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:07:58,887 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpsdtugbvb\test_books_cleaned.parquet...
+2025-11-23 19:07:58,887 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:07:58,895 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:08:05,615 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 19:08:05,615 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 19:08:05,632 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:08:05,632 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:08:05,632 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:08:05,632 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:08:05,634 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:08:05,634 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:08:05,638 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:08:05,638 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:08:05,640 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:08:05,640 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:08:05,774 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:08:05,774 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:08:05,776 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:08:05,776 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:08:05,776 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:08:05,776 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:08:05,782 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:08:05,784 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:08:05,785 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:08:05,786 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:08:05,787 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:08:05,789 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:08:05,789 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:08:05,789 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:08:05,792 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:08:05,794 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:08:05,794 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:17:07,663 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:17:07,741 - root - INFO - Logging configured. Level: INFO, Log File: logs\app.log
+2025-11-23 19:17:21,161 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp_gtw6a7d\test_books.csv...
+2025-11-23 19:17:21,382 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpq1mgr0fl\test_books.csv...
+2025-11-23 19:17:21,526 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:17:21,526 - src.book_recommender.data.processor - INFO - Loaded 4 rows.
+2025-11-23 19:17:21,526 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:21,526 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:21,527 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:21,527 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:22,169 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:22,169 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:22,590 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:17:22,592 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:17:22,592 - src.book_recommender.data.processor - WARNING - Dropped 1 rows with missing titles.
+2025-11-23 19:17:22,592 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:17:22,595 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp_gtw6a7d\test_books_cleaned.parquet...
+2025-11-23 19:17:22,595 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpq1mgr0fl\test_books_cleaned.parquet...
+2025-11-23 19:17:28,394 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:17:28,394 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:17:28,522 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp99_yny7e\test_books.csv...
+2025-11-23 19:17:28,570 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:17:28,570 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:28,570 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:28,572 - src.book_recommender.data.processor - INFO - Loaded 0 rows.
+2025-11-23 19:17:28,572 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:28,573 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:28,575 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:28,578 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:28,580 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:17:28,588 - src.book_recommender.data.processor - ERROR - DataFrame is empty after cleaning. No valid book data to process.
+2025-11-23 19:17:28,592 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmph5255auv\test_books.csv...
+2025-11-23 19:17:28,603 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmprv0eqk2z\test_books.csv...
+2025-11-23 19:17:29,081 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmph5255auv\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:17:29,081 - src.book_recommender.data.processor - ERROR - Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmprv0eqk2z\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+2025-11-23 19:17:29,604 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 19:17:29,623 - src.book_recommender.data.processor - ERROR - Raw data file not found at: non_existent_file.csv
+2025-11-23 19:17:29,623 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp3wuuvleb\test_books.csv...
+2025-11-23 19:17:29,626 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:17:29,626 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:29,629 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:29,634 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:29,641 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:17:29,642 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp3wuuvleb\test_books_cleaned.parquet...
+2025-11-23 19:17:29,644 - src.book_recommender.data.processor - INFO - Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpscv0qg74\test_books.csv...
+2025-11-23 19:17:29,649 - src.book_recommender.data.processor - INFO - Loaded 3 rows.
+2025-11-23 19:17:29,651 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:17:29,651 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:17:29,651 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:17:29,655 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:17:29,661 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:17:29,668 - src.book_recommender.data.processor - INFO - Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpscv0qg74\test_books_cleaned.parquet...
+2025-11-23 19:17:29,672 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:17:29,674 - src.book_recommender.data.processor - INFO - Successfully saved 3 processed rows.
+2025-11-23 19:17:29,680 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 3 books...
+2025-11-23 19:18:05,186 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (3, 384)
+2025-11-23 19:18:05,246 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:18:05,246 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:18:05,246 - src.book_recommender.data.processor - INFO - Starting data cleaning and preparation...
+2025-11-23 19:18:05,246 - src.book_recommender.data.processor - INFO - Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+2025-11-23 19:18:05,251 - src.book_recommender.data.processor - WARNING - No 'book_id' column found. Generated 'id' from DataFrame index.
+2025-11-23 19:18:05,256 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:18:05,256 - src.book_recommender.data.processor - INFO - Creating 'combined_text' for embeddings with weighted fields...
+2025-11-23 19:18:05,257 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:18:05,258 - src.book_recommender.ml.embedder - INFO - Generating embeddings for 4 books...
+2025-11-23 19:18:06,077 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:18:06,077 - src.book_recommender.ml.embedder - INFO - Embeddings generated with shape: (4, 384)
+2025-11-23 19:18:06,077 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:18:06,078 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 4 vectors.
+2025-11-23 19:18:06,366 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:18:06,366 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'A Farewell to Arms'.
+2025-11-23 19:18:06,374 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,375 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,375 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:18:06,375 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'alpha book'.
+2025-11-23 19:18:06,380 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,380 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:18:06,383 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,384 - src.book_recommender.ml.recommender - WARNING - Title 'non existent book' not found in the dataset.
+2025-11-23 19:18:06,387 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,388 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
+2025-11-23 19:18:06,388 - src.book_recommender.ml.recommender - INFO - Recommender initialized with FAISS index containing 5 vectors.
+2025-11-23 19:18:06,389 - src.book_recommender.ml.recommender - INFO - Found 1 recommendations for 'beta book'.
