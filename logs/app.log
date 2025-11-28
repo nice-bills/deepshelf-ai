@@ -2147,3 +2147,288 @@ book_recommender.core.exceptions.DataNotFoundError: Raw data file not found at: 
 21:54:54 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
 21:54:54 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Midnight in the Garden of Good and Evil'
 21:54:55 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'The Silence of the Lambs  (Hannibal Lecter, #2)', got 'Hannibal Rising'. Skipping.
+16:26:53 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpkpe2613_\test_books.csv...
+16:26:54 | INFO     | src.book_recommender.data.processor | Loaded 4 rows.
+16:26:54 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+16:26:54 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+16:26:54 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+16:26:54 | WARNING  | src.book_recommender.data.processor | Dropped 1 rows with missing titles.
+16:26:54 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+16:26:54 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpkpe2613_\test_books_cleaned.parquet...
+16:26:56 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+16:26:56 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpaeq5zvv2\test_books.csv...
+16:26:56 | INFO     | src.book_recommender.data.processor | Loaded 0 rows.
+16:26:56 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+16:26:56 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+16:26:56 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+16:26:56 | ERROR    | src.book_recommender.data.processor | DataFrame is empty after cleaning. No valid book data to process.
+16:26:56 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpipxyy73h\test_books.csv...
+16:26:56 | ERROR    | src.book_recommender.data.processor | Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpipxyy73h\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+16:26:56 | ERROR    | src.book_recommender.data.processor | Raw data file not found at: non_existent_file.csv
+16:26:56 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp8wkbnus5\test_books.csv...
+16:26:56 | INFO     | src.book_recommender.data.processor | Loaded 3 rows.
+16:26:56 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+16:26:56 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+16:26:56 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+16:26:56 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+16:26:56 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmp8wkbnus5\test_books_cleaned.parquet...
+16:26:56 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+16:26:56 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+16:27:15 | INFO     | src.book_recommender.ml.embedder | Model loaded successfully.
+16:27:15 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 3 books...
+16:28:15 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (3, 384)
+16:28:15 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+16:28:15 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+16:28:15 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+16:28:15 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+16:28:15 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 4 books...
+16:28:15 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (4, 384)
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 4 vectors.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'A Farewell to Arms'.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'alpha book'.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+16:28:15 | WARNING  | src.book_recommender.ml.recommender | Title 'non existent book' not found in the dataset.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+16:28:15 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'beta book'.
+16:41:04 | INFO     | root                           | Logging configured | Level: INFO | File: logs\app.log
+16:41:08 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 9870 vectors.
+16:41:08 | INFO     | __main__                       | Generating/Loading cluster data for Streamlit app...
+16:41:08 | INFO     | src.book_recommender.ml.clustering | Starting K-Means clustering with 20 clusters...
+16:41:20 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+16:41:20 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+16:41:22 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+16:41:55 | INFO     | src.book_recommender.ml.embedder | Model loaded successfully.
+16:43:14 | INFO     | src.book_recommender.ml.clustering | K-Means clustering completed.
+16:49:40 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:49:40 | INFO     | src.book_recommender.ml.clustering | Generating descriptive names for clusters...
+16:49:43 | INFO     | src.book_recommender.ml.clustering | Cluster names generated.
+16:49:43 | INFO     | __main__                       | Cluster data generated/loaded and cached for Streamlit app.
+16:49:53 | WARNING  | huggingface_hub.utils._http    | '(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 5b98a665-dfb2-4967-a018-b3e77b14a29d)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json
+16:49:53 | WARNING  | huggingface_hub.utils._http    | Retrying in 1s [Retry 1/5].
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Murder on the Orient Express (Hercule Poirot, #10)'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Girl Who Kicked the Hornet's Nest (Millennium, #3)'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Crime and Punishment'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'In Cold Blood'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'A Time to Kill (Jake Brigance, #1)'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America'
+16:50:06 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Da Vinci Code (Robert Langdon, #2)'
+16:50:07 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'The Silence of the Lambs  (Hannibal Lecter, #2)', got 'Hannibal Rising'. Skipping.
+16:50:08 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Midnight in the Garden of Good and Evil'
+16:50:32 | INFO     | src.book_recommender.ml.embedder | Model loaded successfully.
+16:50:33 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:51:20 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:53:55 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Twisted Love'
+16:53:56 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Disclaimer'
+16:53:56 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Automaton'
+16:53:56 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Betrayal', got 'Tim Tigner Standalone Thrillers'. Skipping.
+16:53:56 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Unparalleled', got 'The Economy of British America, 1607-1789'. Skipping.
+16:53:56 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Fear Index'
+16:53:56 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Twisted', got 'A Companion to Mexican History and Culture'. Skipping.
+16:53:56 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Scare'
+16:53:57 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+16:53:57 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+16:53:57 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+16:53:57 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+16:53:58 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+16:57:26 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+16:57:27 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+16:57:30 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+16:58:00 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+16:59:41 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'
+16:59:43 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A heartwarming romance set in a small town...'
+16:59:45 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A fantasy adventure with magic and dragons...'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Bentwhistle the Dragon in a Threat from the Past'
+16:59:48 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'The Color of Magic (Discworld, #1; Rincewind, #1)', got 'The Colour of Magic'. Skipping.
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Dragon and the Princess'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Dealing with Dragons (Enchanted Forest Chronicles, #1)'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Uprooted'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Dragon Keeper (Rain Wild Chronicles, #1)'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Dragon's Bait'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Stone Seekers (Dragon Hunters, #1)'
+16:59:48 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Book of Dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Dragon and the Princess' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Dragon Wing (The Death Gate Cycle, #1)' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Dealing with Dragons (Enchanted Forest Chronicles, #1)' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Color of Magic (Discworld, #1; Rincewind, #1)' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Book of Dragons' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Uprooted' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Dragon Keeper (Rain Wild Chronicles, #1)' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Dragon's Bait' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Stone Seekers (Dragon Hunters, #1)' based on query 'A fantasy adventure with magic and dragons'
+16:59:49 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Bentwhistle the Dragon in a Threat from the Past' based on query 'A fantasy adventure with magic and dragons'
+17:09:50 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpso4xrjnc\test_books.csv...
+17:09:50 | INFO     | src.book_recommender.data.processor | Loaded 4 rows.
+17:09:50 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:09:50 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:09:51 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:09:51 | WARNING  | src.book_recommender.data.processor | Dropped 1 rows with missing titles.
+17:09:51 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:09:51 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpso4xrjnc\test_books_cleaned.parquet...
+17:09:51 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+17:09:51 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp114dziwr\test_books.csv...
+17:09:51 | INFO     | src.book_recommender.data.processor | Loaded 0 rows.
+17:09:51 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:09:51 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:09:51 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:09:51 | ERROR    | src.book_recommender.data.processor | DataFrame is empty after cleaning. No valid book data to process.
+17:09:51 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmp0_prm_bv\test_books.csv...
+17:09:51 | ERROR    | src.book_recommender.data.processor | Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmp0_prm_bv\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+17:09:51 | ERROR    | src.book_recommender.data.processor | Raw data file not found at: non_existent_file.csv
+17:09:51 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmptrqndu6w\test_books.csv...
+17:09:51 | INFO     | src.book_recommender.data.processor | Loaded 3 rows.
+17:09:51 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:09:51 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:09:51 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:09:51 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:09:51 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmptrqndu6w\test_books_cleaned.parquet...
+17:09:51 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+17:09:51 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+17:09:58 | INFO     | src.book_recommender.ml.embedder | Model loaded successfully.
+17:09:58 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 3 books...
+17:10:09 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (3, 384)
+17:10:09 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:10:09 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:10:09 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:10:09 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:10:09 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 4 books...
+17:10:09 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (4, 384)
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 4 vectors.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'A Farewell to Arms'.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'alpha book'.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:10:09 | WARNING  | src.book_recommender.ml.recommender | Title 'non existent book' not found in the dataset.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:10:09 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'beta book'.
+17:12:24 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpxeej7rwh\test_books.csv...
+17:12:24 | INFO     | src.book_recommender.data.processor | Loaded 4 rows.
+17:12:24 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:12:24 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:12:24 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:12:24 | WARNING  | src.book_recommender.data.processor | Dropped 1 rows with missing titles.
+17:12:24 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:12:24 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpxeej7rwh\test_books_cleaned.parquet...
+17:12:24 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+17:12:24 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpbw5pq6bl\test_books.csv...
+17:12:24 | INFO     | src.book_recommender.data.processor | Loaded 0 rows.
+17:12:24 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:12:24 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:12:24 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:12:24 | ERROR    | src.book_recommender.data.processor | DataFrame is empty after cleaning. No valid book data to process.
+17:12:24 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpzbkzzr3z\test_books.csv...
+17:12:24 | ERROR    | src.book_recommender.data.processor | Failed to parse CSV from C:\Users\alnic\AppData\Local\Temp\tmpzbkzzr3z\test_books.csv: Error tokenizing data. C error: EOF inside string starting at row 2
+17:12:24 | ERROR    | src.book_recommender.data.processor | Raw data file not found at: non_existent_file.csv
+17:12:24 | INFO     | src.book_recommender.data.processor | Loading raw data from C:\Users\alnic\AppData\Local\Temp\tmpjeuhq9ry\test_books.csv...
+17:12:24 | INFO     | src.book_recommender.data.processor | Loaded 3 rows.
+17:12:24 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:12:24 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:12:24 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:12:24 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:12:24 | INFO     | src.book_recommender.data.processor | Saving processed data to C:\Users\alnic\AppData\Local\Temp\tmpjeuhq9ry\test_books_cleaned.parquet...
+17:12:24 | INFO     | src.book_recommender.data.processor | Successfully saved 3 processed rows.
+17:12:24 | INFO     | src.book_recommender.ml.embedder | Loading sentence-transformer model: all-MiniLM-L6-v2...
+17:12:29 | INFO     | src.book_recommender.ml.embedder | Model loaded successfully.
+17:12:29 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 3 books...
+17:12:31 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (3, 384)
+17:12:31 | INFO     | src.book_recommender.data.processor | Starting data cleaning and preparation...
+17:12:31 | INFO     | src.book_recommender.data.processor | Found columns in CSV: ['title', 'authors', 'genres', 'description', 'tags']
+17:12:31 | WARNING  | src.book_recommender.data.processor | No 'book_id' column found. Generated 'id' from DataFrame index.
+17:12:31 | INFO     | src.book_recommender.data.processor | Creating 'combined_text' for embeddings with weighted fields...
+17:12:31 | INFO     | src.book_recommender.ml.embedder | Generating embeddings for 4 books...
+17:12:31 | INFO     | src.book_recommender.ml.embedder | Embeddings generated with shape: (4, 384)
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 4 vectors.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'A Farewell to Arms'.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'alpha book'.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:12:31 | WARNING  | src.book_recommender.ml.recommender | Title 'non existent book' not found in the dataset.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 5 vectors.
+17:12:31 | INFO     | src.book_recommender.ml.recommender | Found 1 recommendations for 'beta book'.
+17:14:36 | INFO     | root                           | Logging configured | Level: INFO | File: logs\app.log
+17:14:36 | INFO     | src.book_recommender.ml.recommender | Recommender initialized with FAISS index containing 9870 vectors.
+17:14:36 | INFO     | __main__                       | Generating/Loading cluster data for Streamlit app...
+17:14:36 | INFO     | __main__                       | Loading cached clusters from C:\dev\books\data\processed\cluster_cache.pkl
+17:14:37 | ERROR    | __main__                       | Failed to load cluster cache: tuple indices must be integers or slices, not str. Recomputing...
+17:14:37 | INFO     | src.book_recommender.ml.clustering | Starting K-Means clustering with 20 clusters...
+17:15:33 | INFO     | src.book_recommender.ml.clustering | K-Means clustering completed.
+17:15:33 | INFO     | src.book_recommender.ml.clustering | Generating descriptive names for clusters...
+17:15:33 | INFO     | src.book_recommender.ml.clustering | Cluster names generated.
+17:15:33 | INFO     | __main__                       | Cluster data saved to C:\dev\books\data\processed\cluster_cache.pkl
+17:15:33 | INFO     | __main__                       | Cluster data generated/loaded and cached for Streamlit app.
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Girl Who Kicked the Hornet's Nest (Millennium, #3)'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'In Cold Blood'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'A Time to Kill (Jake Brigance, #1)'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Crime and Punishment'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Da Vinci Code (Robert Langdon, #2)'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Murder on the Orient Express (Hercule Poirot, #10)'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America'
+17:15:36 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Girl Who Played with Fire (Millennium, #2)'
+17:15:37 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'The Silence of the Lambs  (Hannibal Lecter, #2)', got '新・ジャンル別　 洋書ベスト500プラス'. Skipping.
+17:15:38 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Midnight in the Garden of Good and Evil'
+17:15:53 | INFO     | __main__                       | Loading embedding model: all-MiniLM-L6-v2
+17:15:53 | INFO     | __main__                       | Loading embedding model: all-MiniLM-L6-v2
+17:15:57 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+17:15:57 | INFO     | src.book_recommender.ml.embedder | Generating embedding for query: 'A psychological thriller with unexpected twists...'
+17:16:01 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Scare'
+17:16:01 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'The Fear Index'
+17:16:01 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Betrayal', got 'Tim Tigner Standalone Thrillers'. Skipping.
+17:16:01 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Automaton'
+17:16:01 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Disclaimer'
+17:16:01 | INFO     | src.book_recommender.utils     | Found Google Books cover for 'Twisted Love'
+17:16:01 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Twisted', got 'A Companion to Mexican History and Culture'. Skipping.
+17:16:01 | INFO     | src.book_recommender.utils     | Google Books mismatch: queried 'Unparalleled', got 'The Economy of British America, 1607-1789'. Skipping.
+17:16:02 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Disclaimer' based on query 'A psychological thriller with unexpected twists'
+17:16:02 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted (Sinister Tales, #2)' based on query 'A psychological thriller with unexpected twists'
+17:16:02 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted Love' based on query 'A psychological thriller with unexpected twists'
+17:16:02 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Scare' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Midnight Obsession (Midnight, #4)' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Unparalleled' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Twisted' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Automaton' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'Betrayal' based on query 'A psychological thriller with unexpected twists'
+17:16:03 | INFO     | src.book_recommender.ml.explainability | Generating explanation for 'The Fear Index' based on query 'A psychological thriller with unexpected twists'

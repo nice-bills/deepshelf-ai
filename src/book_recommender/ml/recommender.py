@@ -73,30 +73,42 @@ class BookRecommender:
 
         distances, indices = self.index.search(vector, top_k + (1 if ignore_index is not None else 0))
 
+        # Filter out the ignore_index if present
+        valid_mask = indices[0] != ignore_index
+        valid_indices = indices[0][valid_mask]
+        valid_distances = distances[0][valid_mask]
+
+        # Calculate similarity scores
+        # cosine_sim = 1 - (L2_dist^2) / 2
+        similarity_scores = 1 - (valid_distances**2) / 2
+
+        # Filter by threshold
+        threshold_mask = similarity_scores >= similarity_threshold
+        final_indices = valid_indices[threshold_mask]
+        final_scores = similarity_scores[threshold_mask]
+
+        if len(final_indices) == 0:
+            return []
+
+        # Batch retrieve book data
+        # We use iloc[final_indices] to get all rows at once
+        recommended_books_df = self.book_data.iloc[final_indices]
+
         recommendations = []
-        for i in range(len(indices[0])):
-            idx = indices[0][i]
-            dist = distances[0][i]
-
-            if idx == ignore_index:
-                continue
-
-            similarity_score = 1 - (dist**2) / 2
-
-            if similarity_score >= similarity_threshold:
-                rec = self.book_data.iloc[idx]
-                recommendations.append(
-                    {
-                        "id": rec["id"],
-                        "title": rec["title"],
-                        "authors": rec.get("authors", "N/A"),
-                        "description": rec.get("description", ""),
-                        "genres": rec.get("genres", ""),
-                        "tags": rec.get("tags", ""),
-                        "rating": rec.get("rating", "N/A"),
-                        "similarity": similarity_score,
-                    }
-                )
+        # Iterate over the subset DataFrame and the corresponding scores
+        for (idx, row), score in zip(recommended_books_df.iterrows(), final_scores):
+            recommendations.append(
+                {
+                    "id": row["id"],
+                    "title": row["title"],
+                    "authors": row.get("authors", "N/A"),
+                    "description": row.get("description", ""),
+                    "genres": row.get("genres", ""),
+                    "tags": row.get("tags", ""),
+                    "rating": row.get("rating", "N/A"),
+                    "similarity": float(score),
+                }
+            )
 
         return recommendations
 

@@ -17,6 +17,7 @@ RAW_DATA_PATH = RAW_DATA_DIR / "books_prepared.csv"
 PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "books_cleaned.parquet"
 EMBEDDINGS_PATH = PROCESSED_DATA_DIR / "book_embeddings.npy"
 EMBEDDING_METADATA_PATH = PROCESSED_DATA_DIR / "embedding_metadata.json"
+CLUSTERS_CACHE_PATH = PROCESSED_DATA_DIR / "cluster_cache.pkl"
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 

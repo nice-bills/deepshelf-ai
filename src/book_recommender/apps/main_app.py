@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import uuid
+import pickle
 from datetime import datetime
 from typing import Optional
 from contextlib import contextmanager
@@ -11,6 +12,7 @@ import pandas as pd
 import streamlit as st
 import sys
 import os
+from sentence_transformers import SentenceTransformer
 
 # Add the project root to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
@@ -38,6 +40,16 @@ logger = logging.getLogger(__name__)
 st.set_page_config(
     page_title="BookFinder - AI Book Recommendations", page_icon="📚", layout="wide", initial_sidebar_state="collapsed"
 )
+
+
+@st.cache_resource(show_spinner=False)
+def load_embedding_model() -> SentenceTransformer:
+    """
+    Load and cache the sentence-transformer model.
+    This ensures the model is loaded only once per session/process.
+    """
+    logger.info(f"Loading embedding model: {config.EMBEDDING_MODEL}")
+    return SentenceTransformer(config.EMBEDDING_MODEL)
 
 
 @contextmanager
@@ -205,11 +217,6 @@ st.markdown(
     * {
         font-family: 'Inter', sans-serif;
     }
-
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
 
     /* Main container */
     .main {
@@ -533,16 +540,46 @@ def load_recommender() -> BookRecommender:
 def load_cluster_data() -> tuple[np.ndarray, dict, pd.DataFrame]:
     """
     Generates and returns cached book clusters, cluster names, and book data with cluster IDs.
+    Tries to load from disk first, then falls back to computation and saves to disk.
     """
     logger.info("Generating/Loading cluster data for Streamlit app...")
     recommender = load_recommender()
     book_data_df = recommender.book_data.copy()
-    embeddings_arr = recommender.embeddings
+    
+    # Try loading from disk
+    if os.path.exists(config.CLUSTERS_CACHE_PATH):
+        try:
+            logger.info(f"Loading cached clusters from {config.CLUSTERS_CACHE_PATH}")
+            with open(config.CLUSTERS_CACHE_PATH, "rb") as f:
+                cached_data = pickle.load(f)
+            
+            clusters_arr = cached_data["clusters_arr"]
+            names = cached_data["names"]
+            
+            # Verify consistency
+            if len(clusters_arr) == len(book_data_df):
+                book_data_df["cluster_id"] = clusters_arr
+                logger.info("Cluster data loaded from disk cache.")
+                return clusters_arr, names, book_data_df
+            else:
+                logger.warning("Cached cluster data size mismatch. Recomputing...")
+        except Exception as e:
+            logger.error(f"Failed to load cluster cache: {e}. Recomputing...")
 
+    # Recompute if not found or failed
+    embeddings_arr = recommender.embeddings
     clusters_arr, _ = cluster_books(embeddings_arr, n_clusters=config.NUM_CLUSTERS)
     book_data_df["cluster_id"] = clusters_arr
 
     names = get_cluster_names(book_data_df, clusters_arr)
+
+    # Save to disk
+    try:
+        with open(config.CLUSTERS_CACHE_PATH, "wb") as f:
+            pickle.dump({"clusters_arr": clusters_arr, "names": names}, f)
+        logger.info(f"Cluster data saved to {config.CLUSTERS_CACHE_PATH}")
+    except Exception as e:
+        logger.error(f"Failed to save cluster cache: {e}")
 
     logger.info("Cluster data generated/loaded and cached for Streamlit app.")
     return clusters_arr, names, book_data_df
@@ -789,7 +826,10 @@ def main():
             if (search_button and query.strip()) or (query and query != st.session_state.get("last_query", "")):
                 st.session_state.last_query = query
                 with custom_spinner("Finding the perfect books for you..."):
-                    query_embedding = generate_embedding_for_query(query)
+                    # Use the cached model instance
+                    embedding_model = load_embedding_model()
+                    query_embedding = generate_embedding_for_query(query, model=embedding_model)
+                    
                     st.session_state.recommendations = recommender.get_recommendations_from_vector(
                         query_embedding,
                         top_k=10,

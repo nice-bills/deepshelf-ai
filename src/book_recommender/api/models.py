@@ -1,25 +1,31 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, BeforeValidator
+
+
+def _strip_whitespace(v: Optional[str]) -> Optional[str]:
+    return v.strip() if v else v
+
+
+StrippedString = Annotated[str, BeforeValidator(_strip_whitespace)]
+OptionalStrippedString = Annotated[Optional[str], BeforeValidator(_strip_whitespace)]
 
 
 class RecommendByQueryRequest(BaseModel):
-    query: str = Field(
+    query: StrippedString = Field(
         ...,
         min_length=1,
         max_length=255,
-        strip_whitespace=True,
         json_schema_extra={"example": "science fiction about space travel"},
     )
     top_k: int = Field(5, gt=0, le=100, json_schema_extra={"example": 5})
 
 
 class RecommendByTitleRequest(BaseModel):
-    title: str = Field(
+    title: StrippedString = Field(
         ...,
         min_length=1,
         max_length=255,
-        strip_whitespace=True,
         json_schema_extra={"example": "Dune"},
     )
     top_k: int = Field(5, gt=0, le=100, json_schema_extra={"example": 5})
@@ -73,26 +79,23 @@ class ExplanationResponse(BaseModel):
 
 
 class FeedbackRequest(BaseModel):
-    query: str = Field(
+    query: StrippedString = Field(
         ...,
         min_length=1,
         max_length=255,
-        strip_whitespace=True,
         json_schema_extra={"example": "books about dragons"},
     )
-    book_id: str = Field(
+    book_id: StrippedString = Field(
         ...,
         min_length=1,
         max_length=36,
-        strip_whitespace=True,
         json_schema_extra={"example": "b1b2b3b4-b5b6-b7b8-b9b0-b1b2b3b4b5b6"},
     )
     feedback_type: str = Field(..., pattern="^(positive|negative)$")
-    session_id: Optional[str] = Field(
+    session_id: OptionalStrippedString = Field(
         None,
         min_length=1,
         max_length=128,
-        strip_whitespace=True,
         json_schema_extra={"example": "user-session-12345"},
     )
 

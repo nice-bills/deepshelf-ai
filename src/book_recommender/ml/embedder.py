@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 from functools import lru_cache
+from typing import Optional
 
 # Add the project root to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
@@ -84,18 +85,23 @@ def generate_embeddings(
     return np.asarray(embeddings)
 
 
-def generate_embedding_for_query(query: str, model_name: str = config.EMBEDDING_MODEL) -> np.ndarray:
+def generate_embedding_for_query(
+    query: str, model_name: str = config.EMBEDDING_MODEL, model: Optional[SentenceTransformer] = None
+) -> np.ndarray:
     """
     Generates a sentence embedding for a single text query.
 
     Args:
         query (str): The text query to embed.
-        model_name (str): The name of the sentence-transformer model to use.
+        model_name (str): The name of the sentence-transformer model to use (if model not provided).
+        model (SentenceTransformer, optional): A pre-loaded model instance to use.
 
     Returns:
         np.ndarray: A 1D NumPy array representing the query embedding.
     """
-    model = _load_model(model_name)
+    if model is None:
+        model = _load_model(model_name)
+    
     logger.info(f"Generating embedding for query: '{query[:50]}...'")
     embedding = model.encode(query, show_progress_bar=False)
     return np.asarray(embedding)
