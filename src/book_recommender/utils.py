@@ -68,7 +68,14 @@ def _get_cover_from_google_books(title: str, author: str) -> Optional[str]:
     try:
         query = f"{title} {author}".strip()
         encoded_query = urllib.parse.quote(query)
-        url = f"https://www.googleapis.com/books/v1/volumes?q={encoded_query}&maxResults=1"
+        
+        base_url = "https://www.googleapis.com/books/v1/volumes"
+        url = f"{base_url}?q={encoded_query}&maxResults=1"
+        
+        # Add API key if available to avoid rate limiting
+        api_key = os.getenv("GOOGLE_BOOKS_API_KEY")
+        if api_key:
+            url += f"&key={api_key}"
 
         response = requests.get(url, timeout=5)
         response.raise_for_status()
