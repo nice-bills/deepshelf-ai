@@ -41,6 +41,7 @@ from src.book_recommender.core.logging_config import configure_logging
 from src.book_recommender.ml.explainability import explain_recommendation
 from src.book_recommender.ml.feedback import get_all_feedback, save_feedback
 from src.book_recommender.ml.recommender import BookRecommender
+from src.book_recommender.utils import load_book_covers_batch
 
 warnings.filterwarnings("ignore", message="resume_download is deprecated")
 warnings.filterwarnings("ignore", category=FutureWarning, module="huggingface_hub")
@@ -84,8 +85,9 @@ async def lifespan(app: FastAPI):
             logger.info(f"Clusters loaded in {time.time() - t0:.1f}s")
 
             total_time = time.time() - start_time
+            port = os.getenv("PORT", "8000")
             logger.info("=" * 30)
-            logger.info(f"API ready in {total_time:.1f}s | http://0.0.0.0:9696")
+            logger.info(f"API ready in {total_time:.1f}s | http://0.0.0.0:{port}")
             logger.info("=" * 30)
 
         except Exception as e:
@@ -171,6 +173,19 @@ async def recommend_by_query(
     try:
         query_embedding = model.encode(body.query, show_progress_bar=False)
         recommendations = recommender.get_recommendations_from_vector(query_embedding, top_k=body.top_k)
+
+        # Identify books with missing covers
+        books_needing_covers = [
+            rec for rec in recommendations if not rec.get("cover_image_url")
+        ]
+
+        # Fetch missing covers in batch
+        if books_needing_covers:
+            covers_map = load_book_covers_batch(books_needing_covers)
+            for rec in recommendations:
+                if not rec.get("cover_image_url"):
+                    rec["cover_image_url"] = covers_map.get(rec["title"])
+
         results = []
         for rec in recommendations:
             book = Book(
@@ -214,6 +229,18 @@ async def recommend_by_title(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Book with title '{body.title}' not found or no recommendations met the similarity threshold.",
             )
+
+        # Identify books with missing covers
+        books_needing_covers = [
+            rec for rec in recommendations if not rec.get("cover_image_url")
+        ]
+
+        # Fetch missing covers in batch
+        if books_needing_covers:
+            covers_map = load_book_covers_batch(books_needing_covers)
+            for rec in recommendations:
+                if not rec.get("cover_image_url"):
+                    rec["cover_image_url"] = covers_map.get(rec["title"])
 
         results = []
         for rec in recommendations:
@@ -658,7 +685,8 @@ def main():
     """Entry point for uvicorn"""
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":

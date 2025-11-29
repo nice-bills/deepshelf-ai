@@ -15,3 +15,4 @@ uvicorn[standard]
 pydantic
 python-dotenv
 slowapi
+groq

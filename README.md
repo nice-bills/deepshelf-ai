@@ -1,170 +1,154 @@
-# BookFinder-AI
+# BookFinder AI 📚✨
+
 ![Build Status](https://github.com/your-username/your-repo-name/actions/workflows/ci-cd.yml/badge.svg)
-[![Codecov](https://codecov.io/gh/your-username/your-repo-name/branch/main/graph/badge.svg?token=your-codecov-token)](https://codecov.io/gh/your-username/your-repo-name)
 
-This project is a Content-Based Book Recommender MVP built using a 100% open-source Python stack. It uses sentence embeddings to find books with similar content and provides a simple, modern web interface to discover books based on a text description.
+A modern, full-stack **Semantic Book Recommendation Engine**. It uses AI to understand the "vibe" of your request (not just keywords) and finds books that match your description.
 
-## Features
+> **New:** Now featuring **Generative AI Explanations** powered by Groq (Llama 3), a tactile **React Frontend**, and a production-ready **Dockerized Backend**.
 
--   **Semantic Search**: Instead of selecting a title, describe the book you want to read, and the recommender will find matching books based on semantic meaning.
--   **Content-Based Recommendations**: Finds similar books using semantic meaning, not just keywords.
--   **Modern Web UI**: A clean, card-based interface built with Streamlit that displays book covers and expandable details.
--   **Open-Source Stack**: Built entirely with free and open-source tools.
--   **Modular & Extendable**: Code is organized into a proper Python package (`src/book_recommender`), making it easy to extend.
--   **Automated Setup**: The data processing and embedding generation can be run with simple commands.
+## ✨ Features
 
-## Tech Stack
+*   **🧠 Semantic Search:** Find books by describing plot, mood, or character (e.g., *"A cyberpunk detective story with a noir vibe"*).
+*   **🤖 AI Explanations:** Don't just get a list; get a personalized pitch. The app explains *why* a book fits your query using GenAI.
+*   **🎨 Dynamic UI:** A beautiful React interface with:
+    *   **Interactive Backgrounds:** "Lava Lamp" blobs, solid colors, or custom wallpapers.
+    *   **Haptic Feedback:** Tactile buttons and interactions.
+    *   **Glassmorphism:** Modern, translucent aesthetics.
+*   **🔍 Smart Discovery:**
+    *   **"More Like This":** Instantly find similar books from any detail view.
+    *   **Dynamic Clusters:** Explore automatically generated collections based on your library's themes.
+*   **⚡ High Performance:** Parallelized cover image fetching and optimized FAISS vector search.
 
-- **Python 3.12+**
-- **Streamlit**: For the web application UI.
-- **FastAPI**: For the RESTful API.
-- **Sentence-Transformers**: For generating high-quality sentence embeddings.
-- **FAISS**: For efficient, fast similarity search.
-- **Pandas**: For data manipulation.
-- **Uvicorn**: For running the FastAPI application.
-- **Pytest**: For running unit tests.
-- **Docker**: For containerization.
+## 🛠️ Tech Stack
+
+### **Frontend**
+*   **React 19** (Vite)
+*   **TypeScript**
+*   **Tailwind CSS** (Styling)
+*   **Lucide React** (Icons)
+*   **Axios** (API Client)
+
+### **Backend**
+*   **Python 3.10+**
+*   **FastAPI** (Async API)
+*   **Sentence-Transformers** (Embeddings)
+*   **FAISS** (Vector Search)
+*   **Groq API** (Llama 3 for Explanations)
+*   **Pandas / NumPy** (Data Processing)
+
+### **Infrastructure**
+*   **Docker** (Multi-stage builds)
+*   **Uvicorn** (ASGI Server)
 
 ---
 
-## Project Structure
+## 🚀 Quick Start (Local Development)
 
-The project is organized into a modular `src` layout:
+### 1. Prerequisites
+*   Python 3.10+
+*   Node.js 18+ & npm
+*   [Groq API Key](https://console.groq.com) (Free)
+
+### 2. Backend Setup
+
+1.  **Install Python dependencies:**
+    ```bash
+    # Using uv (recommended)
+    uv pip install -e . -r requirements.txt
+    
+    # OR using standard pip
+    pip install -e . -r requirements.txt
+    ```
+
+2.  **Prepare Data:**
+    Place your `goodreads_data.csv` in `data/raw/` and run:
+    ```bash
+    python scripts/prepare_goodreads_data.py
+    ```
+
+3.  **Configure Environment:**
+    Create a `.env` file in the root directory:
+    ```env
+    GROQ_API_KEY=gsk_your_actual_key_here
+    # Optional: Google Books API for better cover images
+    # GOOGLE_BOOKS_API_KEY=...
+    ```
+
+4.  **Run API:**
+    ```bash
+    uv run uvicorn src.book_recommender.api.main:app --reload --host 0.0.0.0 --port 8000
+    ```
+    API will be live at `http://localhost:8000`.
+
+### 3. Frontend Setup
+
+1.  **Navigate to frontend:**
+    ```bash
+    cd frontend
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run Dev Server:**
+    ```bash
+    npm run dev
+    ```
+    App will be live at `http://localhost:5173`.
+
+---
+
+## 🐳 Docker Deployment
+
+The project includes a production-ready Docker setup for the backend.
+
+**Build the Backend Image:**
+```bash
+docker build -f docker/Dockerfile.backend -t bookfinder-api .
+```
+
+**Run the Container:**
+```bash
+docker run -p 8000:8000 --env-file .env bookfinder-api
+```
+
+This image is optimized (slim) and ready for deployment on platforms like **Render**, **Railway**, or **Fly.io**.
+
+---
+
+## 📂 Project Structure
 
 ```
 bookfinder-ai/
-├── src/book_recommender/           # Main package
-│   ├── api/                        # REST API layer
-│   ├── apps/                       # User interfaces
-│   ├── core/                       # Core configuration, exceptions, etc.
-│   ├── data/                       # Data processing
-│   └── ml/                         # Machine learning
-├── tests/                          # Test suite
-├── data/                           # Data storage (not versioned by default)
-├── scripts/                        # Utility scripts
-├── docs/                           # Documentation
-├── logs/                           # Application logs
-├── .github/workflows/ci-cd.yml     # CI/CD pipeline
-├── docker-compose.yml              # Multi-service setup
-├── streamlit.Dockerfile            # Dockerfile for Streamlit app
-├── api.Dockerfile                  # Dockerfile for FastAPI
-├── analytics.Dockerfile            # Dockerfile for Analytics app
-├── run_app.bat                     # Script to run the main Streamlit app
-├── run_api.bat                     # Script to run the FastAPI app
-├── run_analytics.bat               # Script to run the analytics app
-...
+├── frontend/               # React Application
+│   ├── src/
+│   │   ├── api.ts          # API Client
+│   │   ├── App.tsx         # Main Component
+│   │   └── types.ts        # TypeScript Interfaces
+├── src/book_recommender/   # Python Package
+│   ├── api/                # FastAPI Endpoints
+│   ├── ml/                 # AI Logic (FAISS, Explainability)
+│   ├── data/               # Data Processing
+│   └── utils.py            # Utilities (Cover fetching)
+├── data/                   # Data Storage
+│   ├── raw/                # Input CSVs
+│   └── processed/          # Embeddings & Parquet
+├── docker/                 # Docker Configuration
+├── scripts/                # Data Prep Scripts
+└── tests/                  # Pytest Suite
 ```
 
 ---
 
-## Getting Started
+## 🔮 Future Roadmap
 
-### 1. Prerequisites
-
-- Python 3.12 or higher
-- `uv` package manager (`pip install uv`)
-
-### 2. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd book-recommender
-```
-
-### 3. Create and Activate Virtual Environment
-
-```bash
-uv init # To initialize the project
-
-uv venv
-
-source .venv/bin/activate  # macOS/Linux
-# or
-.venv\Scripts\Activate.ps1 # Windows PowerShell
-```
-
-### 4. Install Dependencies
-
-Install all required packages in editable mode:
-
-```bash
-uv pip install -e . -r requirements.txt -r requirements-dev.txt
-```
-
-### 5. Add and Prepare the Data
-
-1.  **Add your dataset**: Place your `goodreads_data.csv` file inside the `data/raw/` directory.
-2.  **Prepare the data**: Run the preprocessing script:
-
-```bash
-uv run python scripts/prepare_goodreads_data.py
-```
-
-### 6. Run the Applications
-
-You can run each service using the provided batch scripts (for Windows).
-
--   **Run the main Streamlit app:**
-    ```bash
-    run_app.bat
-    ```
-    Access at `http://localhost:8501`.
-
--   **Run the FastAPI:**
-    ```bash
-    run_api.bat
-    ```
-    Access the docs at `http://localhost:8000/docs`.
-
--   **Run the Analytics Dashboard:**
-    ```bash
-    run_analytics.bat
-    ```
-    Access at `http://localhost:8502`.
+*   [ ] **Vector Database:** Migrate from local FAISS to Qdrant/Pinecone for scalability.
+*   [ ] **User Accounts:** Save favorite books and custom themes to a database.
+*   [ ] **Redis Caching:** Cache API responses and cover URLs for instant loading.
+*   [ ] **Automated Pipeline:** Auto-ingest new datasets dropped into `data/raw`.
 
 ---
 
-## Running Tests
-
-Ensure your virtual environment is activated and dependencies are installed.
-
-To run the tests, execute the following command from the project root:
-
-```bash
-$env:TESTING_ENV="True"; pytest
-```
-
-This sets the `TESTING_ENV` variable to prevent the app from loading real models during tests. The `pyproject.toml` file is configured to automatically handle the `PYTHONPATH`.
-
----
-
-## Docker Compose Setup
-
-For a more production-like setup, you can use Docker Compose to build and run all services.
-
-```bash
-# Build and start all services
-docker-compose up --build -d
-
-# View logs
-docker-compose logs -f
-
-# Stop and remove containers
-docker-compose down
-```
-
----
-
-## Troubleshooting
-
-**1. `ModuleNotFoundError: No module named 'book_recommender'`**
-   - **Cause**: The `src` directory is not on the `PYTHONPATH`.
-   - **Solution**: Make sure you have installed the project in editable mode (`uv pip install -e .`) and that your virtual environment is activated. If running manually, you must set the `PYTHONPATH` as described in the "Getting Started" section.
-
-**2. `DataNotFoundError`**
-   - **Cause**: The processed data files (`books_cleaned.parquet`, `book_embeddings.npy`) do not exist.
-   - **Solution**: Run the data preparation script: `uv run python scripts/prepare_goodreads_data.py`.
-
-**3. Application is slow on first run**
-   - **Cause**: The sentence-transformer model is being downloaded for the first time.
-   - **Solution**: This is expected. Subsequent runs will be fast as the model is cached.
+**License:** MIT

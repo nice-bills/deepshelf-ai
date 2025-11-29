@@ -1,27 +1,36 @@
-.git
-.gitignore
-
-__pycache__/
+__pycache__
 *.pyc
 *.pyo
 *.pyd
+.Python
+env/
 venv/
 .venv/
-.pytest_cache/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.gitignore
+.mypy_cache
+.pytest_cache
+.ruff_cache
 
-.idea/
-.vscode/
-*.DS_Store
-
-*.md
-Advanced Features to Consider.txt
-Book_Recommender_Project_SEC.txt
-
-pyproject.toml
-requirements-dev.txt
-.python-version
-uv.lock
-
+# Data Exclusions
 data/raw/
+# We keep data/processed for the build
 
-tests/
+# Frontend
+frontend/
+node_modules/
+
+# Docker
+docker/
+docker-compose.yml
+Dockerfile

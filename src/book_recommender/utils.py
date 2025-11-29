@@ -7,7 +7,7 @@ from typing import Optional
 import difflib
 
 import requests
-import streamlit as st
+
 
 logger = logging.getLogger(__name__)
 
@@ -134,7 +134,6 @@ def _get_cover_from_openlibrary(title: str, author: str) -> Optional[str]:
         return None
 
 
-@st.cache_data
 def load_book_covers_batch(books):
     """Pre-fetch covers in batch for faster display"""
 

@@ -34,16 +34,18 @@ dependencies = [
     "pyarrow>=22.0.0",
     "requests>=2.32.5",
     "scikit-learn>=1.7.2",
-    "sentence-transformers>=2.5.1",
+    "sentence-transformers==2.5.1",
     "streamlit>=1.40.0",
-    "torch>=2.2.2",
-    "transformers>=4.38.2",
+    "torch==2.2.2",
+    "transformers==4.38.2",
     "fastapi>=0.104.1",
     "uvicorn[standard]>=0.24.0",
     "pydantic>=2.5.2",
     "python-dotenv>=1.0.0",
     "plotly>=5.18.0",
     "slowapi>=0.1.9",
+    "pytest>=9.0.1",
+    "groq>=0.36.0",
 ]
 
 [project.optional-dependencies]
