@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { 
   Search, BookOpen, Loader2, X, Sparkles, LayoutGrid, 
-  ThumbsUp, ThumbsDown, CheckCircle, Moon, Sun, ArrowRight, Info 
+  CheckCircle, Moon, Sun, Info 
 } from 'lucide-react';
 import { api } from './api';
 import { Loader } from './Loader';
 import { BookCover } from './BookCover';
+import { BookCard } from './BookCard';
 import type { RecommendationResult, BookCluster } from './types';
 
 function App() {
@@ -374,69 +375,13 @@ function App() {
           {loading && results.length === 0 ? (
              <Loader />
           ) : (
-            results.map((result, idx) => (
-              <div 
+            results.map((result) => (
+              <BookCard 
                 key={result.book.id} 
-                onClick={() => handleReadMore(result)}
-                className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                <div className="flex flex-col sm:flex-row gap-5 items-start">
-                    {/* Cover */}
-                    <div className="w-full sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
-                      <BookCover 
-                        src={result.book.cover_image_url} 
-                        title={result.book.title} 
-                        author={result.book.authors[0]}
-                        className="w-full h-full transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="space-y-2.5 flex-1 min-w-0">
-                        <div className="flex justify-between items-start gap-4">
-                            <h2 className="text-lg font-bold leading-snug text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                            {result.book.title}
-                            </h2>
-                            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-1 rounded-full whitespace-nowrap">
-                            {Math.round(result.similarity_score * 100)}%
-                            </span>
-                        </div>
-                        
-                        <p className="text-zinc-500 dark:text-zinc-400 font-medium text-xs">
-                            by <span className="text-zinc-900 dark:text-zinc-200">{result.book.authors.join(', ')}</span>
-                        </p>
-
-                        <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-sm line-clamp-2">
-                            {result.book.description}
-                        </p>
-
-                        <div className="pt-4 flex items-center justify-between gap-4">
-                            <button className="flex items-center gap-1 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
-                              Read more <ArrowRight className="w-4 h-4" />
-                            </button>
-                            
-                            {/* Feedback Actions */}
-                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
-                                <button onClick={() => handleFeedback(result.book.id, 'positive')} className="p-2 hover:bg-green-50 dark:hover:bg-green-900/30 text-zinc-400 hover:text-green-600 dark:hover:text-green-400 rounded-full transition-colors">
-                                    <ThumbsUp className="w-4 h-4" />
-                                </button>
-                                <button onClick={() => handleFeedback(result.book.id, 'negative')} className="p-2 hover:bg-red-50 dark:hover:bg-red-900/30 text-zinc-400 hover:text-red-600 dark:hover:text-red-400 rounded-full transition-colors">
-                                    <ThumbsDown className="w-4 h-4" />
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-wrap gap-1.5 pt-2">
-                            {result.book.genres.slice(0, 3).map(genre => (
-                                <span key={genre} className="text-[10px] uppercase tracking-wider font-bold text-zinc-500 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 rounded-md truncate max-w-[120px]" title={genre}>
-                                {genre}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-              </div>
+                result={result} 
+                onClick={() => handleReadMore(result)} 
+                onFeedback={handleFeedback} 
+              />
             ))
           )}
         </div>
