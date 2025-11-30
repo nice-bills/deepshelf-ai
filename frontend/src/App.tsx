@@ -12,6 +12,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<RecommendationResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [longLoading, setLongLoading] = useState(false); // New state for slow requests
   const [hasSearched, setHasSearched] = useState(false);
   
   // Modal State
@@ -120,22 +121,50 @@ function App() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!query.trim()) return;
 
     triggerHaptic();
     setLoading(true);
+    setLongLoading(false);
     setHasSearched(true);
     setResults([]); 
+    
+    // Set a timer to show "Waking up" message if it takes too long
+    const timer = setTimeout(() => setLongLoading(true), 3000);
+
     try {
       const data = await api.recommendByQuery(query);
       setResults(data);
     } catch (err) {
       console.error(err);
     } finally {
+      clearTimeout(timer);
       setLoading(false);
+      setLongLoading(false);
     }
+  };
+
+  const handleQuickSearch = (text: string) => {
+    setQuery(text);
+    // We need to wait for state update or pass text directly. 
+    // Simplest is to just call the API logic directly or use a separate effect, 
+    // but modifying handleSearch to read state is tricky due to closures.
+    // Let's just duplicate the logic slightly or force a search.
+    // Actually, setting query then calling a wrapper is better, but let's just do this:
+    triggerHaptic();
+    setLoading(true);
+    setLongLoading(false);
+    setHasSearched(true);
+    setResults([]);
+    const timer = setTimeout(() => setLongLoading(true), 3000);
+    
+    api.recommendByQuery(text).then(setResults).catch(console.error).finally(() => {
+        clearTimeout(timer);
+        setLoading(false);
+        setLongLoading(false);
+    });
   };
 
   const handleFeedback = async (bookId: string, type: 'positive' | 'negative') => {
@@ -270,6 +299,36 @@ function App() {
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
             </button>
           </form>
+          
+          {/* Long Loading Message */}
+          {loading && longLoading && (
+            <div className="text-center mt-4 animate-fade-in">
+              <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-2">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Waking up the AI... this might take a moment 😴
+              </p>
+            </div>
+          )}
+
+          {/* Quick Prompts */}
+          {!hasSearched && !loading && (
+            <div className="mt-8 flex flex-wrap justify-center gap-3 animate-fade-in animation-delay-200">
+               {[
+                 "Cyberpunk noir detective",
+                 "Cozy cottagecore mystery",
+                 "Space opera with politics",
+                 "Psychological horror 1920s"
+               ].map((prompt) => (
+                 <button
+                   key={prompt}
+                   onClick={() => handleQuickSearch(prompt)}
+                   className="px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm hover:shadow-md active:scale-95"
+                 >
+                   ✨ {prompt}
+                 </button>
+               ))}
+            </div>
+          )}
 
           {!hasSearched && (
             <div className="mt-20 animate-slide-up animation-delay-500">
