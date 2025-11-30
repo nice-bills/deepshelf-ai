@@ -246,7 +246,7 @@ function App() {
             <div className="bg-indigo-600 text-white p-1.5 rounded-lg shadow-lg shadow-indigo-500/20">
                 <BookOpen strokeWidth={3} className="w-4 h-4" />
             </div>
-            <span className="text-zinc-900 dark:text-white">BookFinder</span>
+            <span className="text-zinc-900 dark:text-white font-serif text-xl tracking-normal">BookFinder</span>
           </div>
           
           <div className="flex items-center gap-2">
@@ -273,11 +273,11 @@ function App() {
         <div className={`transition-all duration-700 ease-out ${hasSearched ? 'py-10' : 'py-28'}`}>
           {!hasSearched && (
             <div className="text-center mb-10 animate-fade-in">
-              <h1 className="text-5xl sm:text-6xl font-black tracking-tighter mb-6 text-zinc-900 dark:text-white">
+              <h1 className="text-5xl sm:text-7xl font-black tracking-tighter mb-6 text-zinc-900 dark:text-white font-serif">
                 Find your next<br/>
-                <span className="text-indigo-600 dark:text-indigo-500">obsession.</span>
+                <span className="text-indigo-600 dark:text-indigo-500 italic">obsession.</span>
               </h1>
-              <p className="text-lg max-w-md mx-auto text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              <p className="text-lg max-w-md mx-auto text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">
                 Describe the vibe, plot, or character you're looking for.
               </p>
             </div>
@@ -414,14 +414,14 @@ function App() {
                     className="w-full h-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent sm:hidden"></div>
-                  <h2 className="absolute bottom-4 left-4 right-4 text-2xl font-bold text-white sm:hidden leading-tight shadow-black drop-shadow-md">
+                  <h2 className="absolute bottom-4 left-4 right-4 text-2xl font-bold font-serif text-white sm:hidden leading-tight shadow-black drop-shadow-md">
                     {selectedResult.book.title}
                   </h2>
                </div>
                
                <div className="p-6 sm:pl-0 sm:py-8 space-y-6">
                   <div className="hidden sm:block">
-                    <h2 className="text-3xl font-black leading-tight mb-2 text-zinc-900 dark:text-white">{selectedResult.book.title}</h2>
+                    <h2 className="text-3xl sm:text-4xl font-bold font-serif leading-tight mb-2 text-zinc-900 dark:text-white">{selectedResult.book.title}</h2>
                     <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">by {selectedResult.book.authors.join(', ')}</p>
                   </div>
 

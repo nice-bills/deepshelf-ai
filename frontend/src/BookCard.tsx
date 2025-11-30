@@ -38,7 +38,7 @@ export function BookCard({ result, onClick, onFeedback }: BookCardProps) {
       {/* Content Section */}
       <div className="space-y-2.5 flex-1 min-w-0 flex flex-col">
         <div className="flex justify-between items-start gap-4">
-          <h2 className="text-lg font-bold leading-snug text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+          <h2 className="text-xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 font-serif tracking-tight">
             {book.title}
           </h2>
           {/* Desktop Match Badge */}
