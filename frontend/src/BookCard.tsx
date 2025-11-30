@@ -23,7 +23,7 @@ export function BookCard({ result, onClick, onFeedback }: BookCardProps) {
         <BookCover 
           src={book.cover_image_url} 
           title={book.title} 
-          author={book.authors[0]}
+          author={book.authors?.[0] || 'Unknown Author'}
           className="w-full h-full transition-transform duration-500 group-hover:scale-105"
         />
         
@@ -49,11 +49,11 @@ export function BookCard({ result, onClick, onFeedback }: BookCardProps) {
         </div>
         
         <p className="text-zinc-500 dark:text-zinc-400 font-medium text-xs">
-          by <span className="text-zinc-900 dark:text-zinc-200">{book.authors.join(', ')}</span>
+          by <span className="text-zinc-900 dark:text-zinc-200">{book.authors?.join(', ') || 'Unknown Author'}</span>
         </p>
 
         <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-sm line-clamp-2 sm:line-clamp-3">
-          {book.description}
+          {book.description || 'No description available.'}
         </p>
 
         <div className="pt-2 mt-auto flex items-center justify-between gap-4">
@@ -86,7 +86,7 @@ export function BookCard({ result, onClick, onFeedback }: BookCardProps) {
 
         {/* Genre Tags */}
         <div className="flex flex-wrap gap-1.5 pt-2">
-          {book.genres.slice(0, 3).map(genre => (
+          {book.genres?.slice(0, 3).map(genre => (
             <span 
               key={genre} 
               className="text-[10px] uppercase tracking-wider font-bold text-zinc-500 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 rounded-md truncate max-w-[100px]" 

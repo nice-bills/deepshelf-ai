@@ -289,8 +289,27 @@ function App() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="e.g. A sci-fi thriller about AI consciousness..."
-              className="relative w-full bg-white dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 focus:border-indigo-500 dark:focus:border-indigo-500 rounded-full py-4 pl-6 pr-14 text-lg outline-none transition-all placeholder:text-zinc-400 dark:placeholder:text-zinc-600 shadow-xl shadow-zinc-200/50 dark:shadow-black/50 text-zinc-900 dark:text-white"
+              className="relative w-full bg-white dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 focus:border-indigo-500 dark:focus:border-indigo-500 rounded-full py-4 pl-6 pr-24 text-lg outline-none transition-all placeholder:text-zinc-400 dark:placeholder:text-zinc-600 shadow-xl shadow-zinc-200/50 dark:shadow-black/50 text-zinc-900 dark:text-white"
+              autoFocus
             />
+            
+            {/* Clear Button */}
+            {query && (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('');
+                  setResults([]);
+                  setHasSearched(false);
+                  triggerHaptic();
+                }}
+                className="absolute right-14 top-1/2 -translate-y-1/2 p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
+                aria-label="Clear search"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+
             <button 
               type="submit"
               disabled={loading || !query.trim()}
