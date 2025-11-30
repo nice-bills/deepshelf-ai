@@ -135,14 +135,26 @@ def _get_cover_from_openlibrary(title: str, author: str) -> Optional[str]:
 
 
 def load_book_covers_batch(books):
-    """Pre-fetch covers in batch for faster display"""
+    """Pre-fetch covers in batch, using existing URLs if available."""
+    results = {}
+    books_to_fetch = []
+
+    for book in books:
+        # Check if we already have a valid URL from our enriched dataset
+        existing_url = book.get("cover_image_url")
+        if existing_url and isinstance(existing_url, str) and len(existing_url) > 10:
+             results[book["title"]] = existing_url
+        else:
+             books_to_fetch.append(book)
+
+    if not books_to_fetch:
+        return results
 
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {
-            executor.submit(get_cover_url_multi_source, book["title"], book.get("authors", "")): book for book in books
+            executor.submit(get_cover_url_multi_source, book["title"], book.get("authors", "")): book for book in books_to_fetch
         }
 
-        results = {}
         for future in futures:
             book = futures[future]
             try:

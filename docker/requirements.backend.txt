@@ -1,0 +1,16 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.2.2
+sentence-transformers==2.5.1
+transformers==4.38.2
+pandas
+numpy
+scikit-learn
+pyarrow
+faiss-cpu
+requests
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+slowapi
+groq

@@ -106,6 +106,7 @@ class BookRecommender:
                     "genres": row.get("genres", ""),
                     "tags": row.get("tags", ""),
                     "rating": row.get("rating", "N/A"),
+                    "cover_image_url": row.get("cover_image_url", None),
                     "similarity": float(score),
                 }
             )
