@@ -1,5 +1,4 @@
-data/processed/model_cache/model.safetensors filter=lfs diff=lfs merge=lfs -text
-data/processed/cluster_cache.pkl filter=lfs diff=lfs merge=lfs -text
-git lfs track "*.npy"
-git lfs track "*.parquet"
-git lfs track "*.csv"
+*.safetensors filter=lfs diff=lfs merge=lfs -text
+*.npy filter=lfs diff=lfs merge=lfs -text
+*.parquet filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
