@@ -1,34 +1,48 @@
+version: '3.8'
+
 services:
-  streamlit:
-    build: .
-    ports:
-      - "8501:8501"
-    volumes:
-      - ./data:/app/data
-      - ./logs:/app/logs
-    environment:
-      - PYTHONPATH=/app
-      - LOG_LEVEL=INFO
-    command: python -m streamlit run src/book_recommender/apps/main_app.py
-                                
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
     ports:
       - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
     environment:
-      - PYTHONPATH=/app
+      - HF_DATASET_ID=${HF_DATASET_ID:-nice-bill/book-recommender-data}
+      - GROQ_API_KEY=${GROQ_API_KEY}
       - LOG_LEVEL=INFO
-    command: python -m uvicorn src.book_recommender.api.main:app --host 0.0.0.0 --port 8000
-                                
-  analytics:
-    build: .
+    # The Dockerfile CMD already runs the download script + uvicorn
+    # We can override if we want dev reload, but default is fine.
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
     ports:
-      - "8502:8502"
+      - "8501:8501"
     volumes:
       - ./data:/app/data
+      - ./logs:/app/logs
     environment:
-      - PYTHONPATH=/app
-    command: python -m streamlit run src/book_recommender/apps/analytics_app.py --server.port=8502
+      - HF_DATASET_ID=${HF_DATASET_ID:-nice-bill/book-recommender-data}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - LOG_LEVEL=INFO
+    # Override CMD to run Streamlit
+    command: ["sh", "-c", "python scripts/download_data.py && streamlit run src/book_recommender/apps/main_app.py"]
+
+  frontend:
+    image: node:18-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    # Install deps if missing, then run dev
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      - VITE_API_URL=http://api:8000
+    depends_on:
+      - api

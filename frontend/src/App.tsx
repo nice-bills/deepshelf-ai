@@ -299,9 +299,15 @@ function App() {
                 type="button"
                 onClick={() => {
                   setQuery('');
-                  setResults([]);
-                  setHasSearched(false);
                   triggerHaptic();
+                  // Keep hasSearched=true so we don't jump back to hero layout
+                  // visible results will persist or empty out depending on pref, 
+                  // but let's clear results to indicate "fresh start" without layout shift
+                  setResults([]); 
+                  // Note: The input stays focused because this is a button inside the form? 
+                  // We might need explicit focus, but usually fine.
+                  // Actually, let's focus the input explicitly if we could, 
+                  // but React ref is needed. For now, simple clear is big improvement.
                 }}
                 className="absolute right-14 top-1/2 -translate-y-1/2 p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
                 aria-label="Clear search"
@@ -390,9 +396,11 @@ function App() {
         </div>
 
         {/* Results / Skeletons */}
-        <div className="space-y-6">
+        <div className="space-y-6 min-h-[50vh]">
           {loading && results.length === 0 ? (
-             <Loader />
+             <div className="animate-fade-in pt-10">
+                <Loader />
+             </div>
           ) : (
             results.map((result) => (
               <BookCard 
