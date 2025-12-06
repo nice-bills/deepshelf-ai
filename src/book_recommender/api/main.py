@@ -132,6 +132,14 @@ async def add_security_headers(request: Request, call_next):
     return response
 
 
+from fastapi.responses import RedirectResponse
+
+@app.get("/", include_in_schema=False)
+async def root():
+    """Redirects to the API documentation."""
+    return RedirectResponse(url="/docs")
+
+
 @app.get(
     "/health",
     summary="Perform a health check",
@@ -149,7 +157,7 @@ async def health_check(request: Request):
 
         get_clusters_data()
 
-        return {"status": "OK", "message": "BookFinder API is healthy and core services are loaded."}
+        return {"status": "OK", "message": "DeepShelf API is healthy and core services are loaded."}
     except Exception as e:
         log_exception(e)
         raise HTTPException(
