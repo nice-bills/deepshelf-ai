@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# 📚 Serendipity Frontend (Book Recommender)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive React application for discovering books using semantic search and AI-powered personalization.
 
-Currently, two official plugins are available:
+![Serendipity UI](https://placehold.co/800x400?text=Serendipity+UI+Preview)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+*   **Semantic Search:** Search by "vibe", plot description, or character traits (e.g., "A sci-fi thriller about AI consciousness").
+*   **Persona Picker (New!):** Experience the personalization engine by switching between pre-defined user personas (e.g., "The Futurist", "The Horror Fan") to see how recommendations adapt.
+*   **Curated Collections:** Explore automatically generated book clusters based on semantic similarity.
+*   **Personalized Recommendations:** Get tailored suggestions based on your (simulated) reading history.
+*   **Modern UI:** Dark mode support, glassmorphism design, and responsive grid layout.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+*   **Framework:** React 18 (Vite)
+*   **Language:** TypeScript
+*   **Styling:** Tailwind CSS
+*   **Icons:** Lucide React
+*   **State:** React Hooks (Context-free for simplicity)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+*   Node.js (v18 or higher)
+*   npm or yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1.  **Navigate to the frontend directory:**
+    ```bash
+    cd books/frontend
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+### Running Locally
+
+1.  **Start the Development Server:**
+    ```bash
+    npm run dev
+    ```
+    The app will run at `http://localhost:5173`.
+
+2.  **Connect to Backend:**
+    By default, the frontend expects the **Books API** to be running at `http://localhost:8000`.
+    
+    If your backend is running elsewhere (e.g., in Docker or Hugging Face Spaces), create a `.env` file in `books/frontend`:
+    ```env
+    VITE_API_URL=http://localhost:8000
+    ```
+
+## 🧪 Testing the "Persona Picker"
+
+1.  Open the app.
+2.  Click on one of the **Demo Personas** cards (e.g., "The Futurist").
+3.  The app will:
+    *   Load the persona's reading history.
+    *   Trigger a personalization request to the backend.
+    *   Display a curated list of books matching that persona's taste.
+    *   Show a toast notification confirming the switch.
+
+## 📦 Deployment
+
+### Build for Production
+
+```bash
+npm run build
 ```
+This generates static assets in the `dist/` folder, ready for deployment to Vercel, Netlify, or GitHub Pages.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Docker
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+A `Dockerfile` is provided in the root `books` directory (or use the multi-stage build pattern) to serve the static assets via Nginx.
