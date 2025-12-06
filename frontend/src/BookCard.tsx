@@ -27,38 +27,31 @@ export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: 
       onClick={onClick}
       className={`group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-row gap-4 sm:gap-5 overflow-hidden ${isRead ? 'border-indigo-500/50 dark:border-indigo-500/50 ring-1 ring-indigo-500/20' : 'border-zinc-200 dark:border-zinc-800'}`}
     >
-      {/* Read Status Toggle (Absolute Top Right) */}
-      {onToggleRead && (
-        <button
-          onClick={handleToggleRead}
-          className={`absolute top-3 right-3 z-20 p-2 rounded-full transition-all shadow-sm ${isRead ? 'bg-indigo-600 text-white' : 'bg-white/80 dark:bg-zinc-800/80 text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 border border-zinc-200 dark:border-zinc-700'}`}
-          title={isRead ? "Remove from history" : "Mark as read"}
-        >
-          {isRead ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-        </button>
-      )}
-
-      {/* Cover Image Section */}
-      <div className="w-24 sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
-        <BookCover 
-          src={book.cover_image_url} 
-          title={book.title} 
-          author={book.authors?.[0] || 'Unknown Author'}
-          className="w-full h-full transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-
       {/* Content Section */}
       <div className="space-y-2.5 flex-1 min-w-0 flex flex-col">
-        <div className="flex justify-between items-start gap-4">
+        <div className="flex justify-between items-start gap-3">
           <h2 className="text-xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 font-serif tracking-tight">
             {book.title}
           </h2>
-          {/* Match Badge */}
-          <span className="inline-flex text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-1 rounded-full whitespace-nowrap items-center gap-1">
-            <Sparkles className="w-3 h-3" />
-            {percentage}%
-          </span>
+          
+          <div className="flex items-center gap-2 shrink-0">
+             {/* Match Badge */}
+             <span className="inline-flex text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-1 rounded-full whitespace-nowrap items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                {percentage}%
+             </span>
+
+              {/* Read Status Toggle */}
+              {onToggleRead && (
+                <button
+                  onClick={handleToggleRead}
+                  className={`p-1.5 rounded-full transition-all shadow-sm border ${isRead ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white/80 dark:bg-zinc-800/80 text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 border-zinc-200 dark:border-zinc-700'}`}
+                  title={isRead ? "Remove from history" : "Mark as read"}
+                >
+                  {isRead ? <Check className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
+                </button>
+              )}
+          </div>
         </div>
         
         <p className="text-zinc-500 dark:text-zinc-400 font-medium text-xs">

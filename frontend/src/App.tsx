@@ -510,9 +510,9 @@ function App() {
       </main>
 
       {selectedResult && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6">
           <div className="absolute inset-0 bg-zinc-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity" onClick={closeModal} />
-          <div ref={modalRef} className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative animate-slide-up z-50 no-scrollbar border border-zinc-200 dark:border-zinc-800">
+          <div ref={modalRef} className="bg-white dark:bg-zinc-900 rounded-t-3xl sm:rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative animate-slide-up z-50 no-scrollbar border-t sm:border border-zinc-200 dark:border-zinc-800">
             <button onClick={() => { triggerHaptic(); closeModal(); }} className="absolute right-4 top-4 p-2 bg-white/80 dark:bg-black/50 backdrop-blur hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-full transition-colors z-10 shadow-sm">
               <X className="w-5 h-5" />
             </button>
