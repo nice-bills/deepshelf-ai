@@ -301,7 +301,7 @@ function App() {
 
       <header className="sticky top-0 z-30 border-b border-zinc-200/50 dark:border-zinc-800/50 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setActiveView('search')}>
+                    <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setHasSearched(false); setQuery(''); setResults([]); }}>
                       <div className="relative">
                         <div className="absolute -inset-1 bg-indigo-500/20 rounded-full blur-sm group-hover:bg-indigo-500/30 transition-colors"></div>
                         <BookOpen className="w-8 h-8 text-indigo-600 dark:text-indigo-400 relative" />
