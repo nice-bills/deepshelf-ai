@@ -17,10 +17,10 @@ configure_logging(log_file="analytics.log", log_level=os.getenv("LOG_LEVEL", "IN
 logger = logging.getLogger(__name__)
 
 st.set_page_config(
-    page_title="BookFinder Analytics Dashboard", page_icon="📊", layout="wide", initial_sidebar_state="collapsed"
+    page_title="DeepShelf Analytics Dashboard", page_icon="📊", layout="wide", initial_sidebar_state="collapsed"
 )
 
-st.title("BookFinder Analytics Dashboard")
+st.title("DeepShelf Analytics Dashboard")
 
 
 @st.cache_data

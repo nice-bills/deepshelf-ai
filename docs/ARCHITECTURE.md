@@ -1,14 +1,14 @@
-# 🏛️ Architecture Overview: BookFinder
+# Architecture Overview: DeepShelf
 
 This document provides a detailed overview of the BookFinder application's architecture, outlining its components, data flow, and key technology decisions.
 
-## 🎯 System Overview
+## System Overview
 
 BookFinder is a content-based book recommendation system that leverages natural language processing (NLP) and vector similarity search to help users discover books. It comprises a Streamlit-based web application for user interaction, a FastAPI service for programmatic access, and a suite of Python scripts for data processing and embedding generation.
 
 The core principle is to transform book descriptions into high-dimensional numerical vectors (embeddings) using a pre-trained sentence transformer model. These embeddings are then used to find semantically similar books or to cluster books into thematic collections.
 
-## 📦 Component Descriptions
+## Component Descriptions
 
 The system is structured into several modular components:
 
@@ -52,7 +52,7 @@ The system is structured into several modular components:
     *   `analytics.Dockerfile`: Defines the build process for the analytics Streamlit application into a Docker image.
     *   `docker-compose.yml`: Orchestrates the `streamlit`, `api`, and `analytics` services for local development and deployment.
 
-## 🔄 Data Flow
+## Data Flow
 
 The primary data flow for generating recommendations and user interaction is as follows:
 
@@ -151,7 +151,7 @@ graph TD
     style P fill:#fcc,stroke:#333,stroke-width:2px
 ```
 
-## ⚙️ Technology Decisions
+## Technology Decisions
 
 *   **Python 3.10+**: Modern, versatile language.
 *   **Streamlit**: Chosen for rapid development of interactive web UIs with minimal frontend code. Its caching mechanisms (`@st.cache_resource`, `@st.cache_data`) are crucial for performance with ML models.
@@ -166,7 +166,7 @@ graph TD
 *   **GitHub Actions**: For Continuous Integration/Continuous Deployment (CI/CD), automating testing, linting, and Docker image builds.
 *   **Docker / Docker Compose**: For containerizing the application and orchestrating multi-service deployments, ensuring consistent environments.
 
-## ✨ Future Considerations
+## Future Considerations
 
 *   **Data Version Control (DVC)**: Implement DVC for robust tracking of data and model versions, enhancing reproducibility in production.
 *   **Scalability**: For extremely large datasets, consider distributed FAISS indexes or cloud-native vector databases.

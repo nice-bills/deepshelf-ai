@@ -1,58 +1,74 @@
 # Build Stage
-FROM python:3.10-slim as builder
+FROM python:3.10-slim AS builder
 
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# Install build dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     python3-dev \
+    curl \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
-COPY docker/requirements.backend.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.backend.txt
+# Install uv
+RUN pip install --no-cache-dir uv
 
-# Runtime Stage
+COPY docker/requirements.backend.txt .
+
+# Create virtual environment and install dependencies
+ENV UV_HTTP_TIMEOUT=300
+RUN uv venv .venv && \
+    uv pip install --no-cache -r requirements.backend.txt --extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- Runtime Stage ---
 FROM python:3.10-slim
 
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
+ENV PATH="/app/.venv/bin:$PATH"
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # Install runtime dependencies (curl for healthcheck)
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Copy wheels from builder
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.backend.txt .
+# Copy virtual environment from builder
+COPY --from=builder /app/.venv /app/.venv
 
-# Install dependencies
-RUN pip install --no-cache /wheels/*
-# Explicitly install huggingface_hub if not in requirements
-RUN pip install --no-cache huggingface_hub
+# Copy Scripts
+COPY scripts/ ./scripts/
+
+# Data & Model Baking
+ENV HF_HOME=/app/data/model_cache
+
+# Download Model (Bake into image)
+RUN /app/.venv/bin/python scripts/download_model.py
+
+# Download Data (Bake into image)
+RUN /app/.venv/bin/python scripts/download_data.py
 
 # Copy Code
 COPY src/ ./src/
-COPY scripts/ ./scripts/
 
-# Create directory structure and set permissions
-RUN mkdir -p data/processed data/feedback logs && \
-    addgroup --system app && adduser --system --group app && \
-    chown -R app:app /app
+# Create directories and permissions
+RUN mkdir -p data/processed data/feedback logs
+#    addgroup --system app && adduser --system --group app && \
+#    chown -R app:app /app
 
-USER app
+# USER app
 
-# Expose port (Render sets PORT env var, default to 8000)
-EXPOSE 8000
+# Expose port
+EXPOSE 7860
 
 # Healthcheck
-HEALTHCHECK --interval=30s --timeout=30s --start-period=30s --retries=3 \
-  CMD curl -f http://localhost:8000/health || exit 1
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:7860/health || exit 1
 
-# Run Command: Download data then start API
-# We use shell form to allow chaining commands with &&
-CMD ["sh", "-c", "python scripts/download_data.py && python -m uvicorn src.book_recommender.api.main:app --host 0.0.0.0 --port 8000"]
+# Run Command
+CMD ["/app/.venv/bin/uvicorn", "src.book_recommender.api.main:app", "--host", "0.0.0.0", "--port", "7860"]

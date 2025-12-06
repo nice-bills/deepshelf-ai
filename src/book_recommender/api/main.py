@@ -35,6 +35,7 @@ from src.book_recommender.api.models import (
     RecommendationResult,
     RecommendByQueryRequest,
     RecommendByTitleRequest,
+    RecommendByHistoryRequest
 )
 from src.book_recommender.core.exceptions import DataNotFoundError
 from src.book_recommender.core.logging_config import configure_logging
@@ -42,6 +43,9 @@ from src.book_recommender.ml.explainability import explain_recommendation
 from src.book_recommender.ml.feedback import get_all_feedback, save_feedback
 from src.book_recommender.ml.recommender import BookRecommender
 from src.book_recommender.utils import load_book_covers_batch
+from src.book_recommender.services.personalizer import PersonalizationService
+
+personalizer = PersonalizationService()
 
 warnings.filterwarnings("ignore", message="resume_download is deprecated")
 warnings.filterwarnings("ignore", category=FutureWarning, module="huggingface_hub")
@@ -66,7 +70,7 @@ async def lifespan(app: FastAPI):
     """Lifecycle manager with startup timing"""
     if not IS_TESTING:
         logger.info("=" * 30)
-        logger.info("Starting BookFinder API...")
+        logger.info("Starting DeepShelf API...")
         logger.info("=" * 30)
 
         start_time = time.time()
@@ -98,11 +102,11 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    logger.info("Shutting down BookFinder API...")
+    logger.info("Shutting down DeepShelf API...")
 
 
 app = FastAPI(
-    title="BookFinder API",
+    title="DeepShelf API",
     description="API for content-based book recommendations and book management.",
     version="0.1.0",
     lifespan=lifespan,
@@ -205,6 +209,67 @@ async def recommend_by_query(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error during recommendation.",
+        )
+
+@app.post(
+    "/recommend/personalize",
+    response_model=List[RecommendationResult],
+    summary="Get book recommendations based on user reading history",
+)
+@limiter.limit("10/minute")
+async def recommend_personalized(
+    request: Request,
+    body: RecommendByHistoryRequest,
+    recommender: BookRecommender = Depends(get_recommender),
+):
+    """
+    Calls the external Personalization Engine (Port 8001) to get 
+    semantic recommendations, then hydrates the results with local book metadata (cover, authors, etc).
+    """
+    try:
+        semantic_recs = personalizer.get_recommendations(body.user_history,top_k=body.top_k)
+        if not semantic_recs:
+            return []
+        results = []
+        books_needing_covers = []
+        for rec in semantic_recs:
+            # Try exact match first
+            mask = recommender.book_data['title'] == rec['title']
+            local_book_df = recommender.book_data[mask]
+
+            # Fallback to loose match
+            if local_book_df.empty:
+                 mask = recommender.book_data['title'].str.lower().str.strip() == rec['title'].lower().strip()
+                 local_book_df = recommender.book_data[mask]
+
+            if not local_book_df.empty:
+                row = local_book_df.iloc[0]
+
+                book = Book(
+                    id=str(row["id"]),
+                    title=row["title"],
+                    authors=(row.get("authors", "").split(", ") if isinstance(row.get("authors"), str) else []),
+                    description=row.get("description"),
+                    genres=(row.get("genres", "").split(", ") if isinstance(row.get("genres"), str) else []),
+                    cover_image_url=row.get("cover_image_url")
+                )
+                if not book.cover_image_url:
+                    books_needing_covers.append(dict(row))
+
+                results.append(RecommendationResult(book=book, similarity_score=rec["score"]))
+
+        if books_needing_covers:
+            covers_map = load_book_covers_batch(books_needing_covers)
+            for rec in results:
+                if not rec.book.cover_image_url:
+                    rec.book.cover_image_url = covers_map.get(rec.book.title)
+
+        return results
+    except Exception as e:
+        log_exception(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error during personalization.",
         )
 
 

@@ -106,3 +106,7 @@ class FeedbackStatsResponse(BaseModel):
     negative_feedback: int
     feedback_by_book_title: Dict[str, Dict[str, int]]
     feedback_by_query: Dict[str, Dict[str, int]]
+
+class RecommendByHistoryRequest(BaseModel):
+   user_history: List[str]
+   top_k: int = 5

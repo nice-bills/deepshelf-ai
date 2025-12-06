@@ -1,0 +1,4 @@
+{"timestamp": "2025-12-02T20:22:43.042683", "query": "fantasy adventure", "book_id": "4", "book_title": "Unrelated Book", "book_authors": "Author C", "feedback": "positive", "session_id": "test_session_1"}
+{"timestamp": "2025-12-02T20:22:43.057774", "query": "sci-fi classic", "book_id": "5", "book_title": "Sci-Fi Classic", "book_authors": "Author D", "feedback": "negative", "session_id": "test_session_1"}
+{"timestamp": "2025-12-02T21:43:22.362305", "query": "Cyberpunk noir detective", "book_id": "70962", "book_title": "Murder in the Rue de Paradis", "book_authors": "Cara Black", "feedback": "positive", "session_id": null}
+{"timestamp": "2025-12-03T00:35:54.674627", "query": "Psychological horror 1920s", "book_id": "89722", "book_title": "Three Case Histories", "book_authors": "Sigmund Freud,Philip Rieff", "feedback": "positive", "session_id": null}

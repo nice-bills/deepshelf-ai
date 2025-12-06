@@ -47,5 +47,13 @@ export const api = {
       top_k: 6,
     });
     return response.data;
+  },
+
+  recommendPersonalized: async (history: string[]): Promise<RecommendationResult[]> => {
+    const response = await axios.post<RecommendationResult[]>(`${API_URL}/recommend/personalize`, {
+      user_history: history,
+      top_k: 12,
+    });
+    return response.data;
   }
 };

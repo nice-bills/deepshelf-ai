@@ -1,7 +1,7 @@
 [project]
-name = "bookfinder-ai"
-version = "1.0.0"
-description = "AI-powered semantic book recommendation engine"
+name = "deepshelf-engine"
+version = "0.1.0"
+description = "DeepShelf - Semantic Book Recommendation Engine"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

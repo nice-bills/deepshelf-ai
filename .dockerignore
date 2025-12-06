@@ -17,20 +17,15 @@ coverage.xml
 *.cover
 *.log
 .git
-.gitignore
 .mypy_cache
 .pytest_cache
 .ruff_cache
 
-# Data Exclusions
-data/raw/
-# We keep data/processed for the build
+# Data (Except processed)
+data/raw
+data/feedback
+!data/processed
 
-# Frontend
+# Frontend (Don't copy frontend code into backend image)
 frontend/
 node_modules/
-
-# Docker
-docker/
-docker-compose.yml
-Dockerfile

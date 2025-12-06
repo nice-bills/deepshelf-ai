@@ -5,14 +5,15 @@ from pathlib import Path
 
 from huggingface_hub import snapshot_download
 
-# Add project root to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from src.book_recommender.core import config
-
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+
+# Define paths directly to avoid importing from src (which isn't copied yet in Docker build)
+PROCESSED_DATA_DIR = Path("data/processed")
+PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "books_with_embeddings.parquet"
+EMBEDDINGS_PATH = PROCESSED_DATA_DIR / "embeddings.npy"
+CLUSTERS_CACHE_PATH = PROCESSED_DATA_DIR / "clusters_cache.pkl"
 
 def download_processed_data(repo_id: str):
     """
@@ -26,11 +27,11 @@ def download_processed_data(repo_id: str):
         logger.warning("HF_TOKEN environment variable not found. If the dataset is private, download will fail.")
 
     logger.info(f"Starting download from Hugging Face Dataset: {repo_id}")
-    logger.info(f"Target directory: {config.PROCESSED_DATA_DIR}")
+    logger.info(f"Target directory: {PROCESSED_DATA_DIR}")
 
     try:
         # Ensure directory exists
-        config.PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+        PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
         # Download only specific files to avoid clutter
         allow_patterns = [
@@ -43,7 +44,7 @@ def download_processed_data(repo_id: str):
         snapshot_download(
             repo_id=repo_id,
             repo_type="dataset",
-            local_dir=config.PROCESSED_DATA_DIR,
+            local_dir=PROCESSED_DATA_DIR,
             local_dir_use_symlinks=False, # Important for Docker/Deployment
             allow_patterns=allow_patterns,
             token=hf_token
@@ -53,9 +54,9 @@ def download_processed_data(repo_id: str):
         
         # Verify files
         expected_files = [
-            config.PROCESSED_DATA_PATH,
-            config.EMBEDDINGS_PATH,
-            config.CLUSTERS_CACHE_PATH
+            PROCESSED_DATA_PATH,
+            EMBEDDINGS_PATH,
+            CLUSTERS_CACHE_PATH
         ]
         
         missing = [f.name for f in expected_files if not f.exists()]

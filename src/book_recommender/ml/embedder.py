@@ -207,8 +207,12 @@ if __name__ == "__main__":
             "created_at": pd.Timestamp.now().isoformat(),
         }
         ensure_dir_exists_main(args.metadata_path)
-        with open(args.metadata_path, "w") as f:
-            json.dump(metadata, f, indent=2)
+        
+        # Save a simple metadata file to indicate the embedding version/date
+        with open(args.metadata_path, "w", encoding="utf-8") as f:
+            import json
+            json.dump(metadata, f, indent=4)
+        
         logger.info(f"Metadata saved to {args.metadata_path}")
 
     except Exception as e:

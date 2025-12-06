@@ -1,4 +1,4 @@
-# 🚀 Deployment Notes & Configuration Guide
+# Deployment Notes & Configuration Guide
 
 *Created on: November 30, 2025*
 *Project Status: MVP Complete / Production Ready*
@@ -7,8 +7,7 @@ This document serves as a "black box" recovery manual. If you return to this pro
 
 ---
 
-## 1. 🌍 Environment Variables (Secrets)
-
+## 1. Environment Variables 
 These are the variables you MUST set in your cloud provider (Render/Vercel/Railway) for the app to function.
 
 ### **Backend (FastAPI / Docker)**
@@ -30,7 +29,7 @@ These are the variables you MUST set in your cloud provider (Render/Vercel/Railw
 
 ---
 
-## 2. 📦 Build Settings
+## 2. Build Settings
 
 ### **Backend**
 *   **Runtime:** Docker
@@ -47,7 +46,7 @@ These are the variables you MUST set in your cloud provider (Render/Vercel/Railw
 
 ---
 
-## 3. 🛠️ "Cold Start" Recovery
+## 3. "Cold Start" Recovery
 If the application is crashing on startup after a long time:
 
 1.  **Check Hugging Face Data:**
@@ -63,7 +62,7 @@ If the application is crashing on startup after a long time:
 
 ---
 
-## 4. 🎨 Key Features Summary
+## 4. Key Features Summary
 *   **Search:** Semantic search using `all-MiniLM-L6-v2` embeddings.
 *   **Explanation:** Uses Llama 3 (via Groq) to explain recommendations.
 *   **Data Layer:** Self-healing. Downloads data on boot if missing.

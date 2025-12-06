@@ -1,23 +1,43 @@
 import React from 'react';
-import { ThumbsUp, ThumbsDown, ArrowRight, Sparkles } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, ArrowRight, Sparkles, Bookmark, Check } from 'lucide-react';
 import { BookCover } from './BookCover';
 import type { RecommendationResult } from './types';
 
 interface BookCardProps {
   result: RecommendationResult;
+  isRead?: boolean;
+  onToggleRead?: (title: string) => void;
   onClick: () => void;
   onFeedback: (id: string, type: 'positive' | 'negative') => void;
 }
 
-export function BookCard({ result, onClick, onFeedback }: BookCardProps) {
+export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: BookCardProps) {
   const { book, similarity_score } = result;
   const percentage = Math.round(similarity_score * 100);
+
+  const handleToggleRead = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onToggleRead) {
+      onToggleRead(book.title);
+    }
+  };
 
   return (
     <div 
       onClick={onClick}
-      className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-col sm:flex-row gap-5 overflow-hidden"
+      className={`group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-col sm:flex-row gap-5 overflow-hidden ${isRead ? 'border-indigo-500/50 dark:border-indigo-500/50 ring-1 ring-indigo-500/20' : 'border-zinc-200 dark:border-zinc-800'}`}
     >
+      {/* Read Status Toggle (Absolute Top Right) */}
+      {onToggleRead && (
+        <button
+          onClick={handleToggleRead}
+          className={`absolute top-3 right-3 z-20 p-2 rounded-full transition-all shadow-sm ${isRead ? 'bg-indigo-600 text-white' : 'bg-white/80 dark:bg-zinc-800/80 text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 border border-zinc-200 dark:border-zinc-700'}`}
+          title={isRead ? "Remove from history" : "Mark as read"}
+        >
+          {isRead ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+        </button>
+      )}
+
       {/* Cover Image Section */}
       <div className="w-full sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
         <BookCover 

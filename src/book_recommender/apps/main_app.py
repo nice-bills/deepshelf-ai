@@ -39,7 +39,7 @@ from src.book_recommender.utils import get_cover_url_multi_source, load_book_cov
 configure_logging(log_file="app.log", log_level=os.getenv("LOG_LEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 st.set_page_config(
-    page_title="BookFinder - AI Book Recommendations", page_icon="📚", layout="wide", initial_sidebar_state="collapsed"
+    page_title="DeepShelf Legacy Demo", page_icon="📚", layout="wide", initial_sidebar_state="collapsed"
 )
 
 @st.cache_resource(show_spinner=False)
@@ -550,7 +550,7 @@ def load_recommender() -> BookRecommender:
 
     model_changed = False
     if files_exist:
-        with open(config.EMBEDDING_METADATA_PATH, "r") as f:
+        with open(config.EMBEDDING_METADATA_PATH, "r", encoding="utf-8") as f:
             metadata = json.load(f)
         if metadata.get("model_name") != config.EMBEDDING_MODEL:
             model_changed = True
@@ -569,7 +569,7 @@ def load_recommender() -> BookRecommender:
         np.save(config.EMBEDDINGS_PATH, embeddings)
 
         metadata = {"model_name": config.EMBEDDING_MODEL}
-        with open(config.EMBEDDING_METADATA_PATH, "w") as f:
+        with open(config.EMBEDDING_METADATA_PATH, "w", encoding="utf-8") as f:
             json.dump(metadata, f)
 
     recommender = BookRecommender(book_data=book_data, embeddings=embeddings)
@@ -630,8 +630,8 @@ def render_header():
     st.markdown(
         """
         <div class="header-section">
-            <h1 class="main-title">📚 BookFinder</h1>
-            <p class="subtitle">Discover your next favorite book</p>
+            <h1 class="main-title">📚 DeepShelf Legacy Demo</h1>
+            <p class="subtitle">Explore the power of semantic search</p>
         </div>
     """,
         unsafe_allow_html=True,

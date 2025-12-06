@@ -3,7 +3,7 @@ torch==2.2.2
 sentence-transformers==2.5.1
 transformers==4.38.2
 pandas
-numpy
+numpy<2.0.0
 scikit-learn
 pyarrow
 faiss-cpu
@@ -14,3 +14,4 @@ pydantic
 python-dotenv
 slowapi
 groq
+huggingface_hub<1.0

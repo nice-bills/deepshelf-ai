@@ -32,7 +32,7 @@ configure_logging(log_file="app.log", log_level=os.getenv("LOG_LEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 st.set_page_config(
-    page_title="BookFinder AI",
+    page_title="DeepShelf Demo",
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -217,7 +217,7 @@ def load_recommender() -> BookRecommender:
 
     model_changed = False
     if files_exist:
-        with open(config.EMBEDDING_METADATA_PATH, "r") as f:
+        with open(config.EMBEDDING_METADATA_PATH, "r", encoding="utf-8") as f:
             metadata = json.load(f)
         if metadata.get("model_name") != config.EMBEDDING_MODEL:
             model_changed = True
@@ -236,7 +236,7 @@ def load_recommender() -> BookRecommender:
         np.save(config.EMBEDDINGS_PATH, embeddings)
 
         metadata = {"model_name": config.EMBEDDING_MODEL}
-        with open(config.EMBEDDING_METADATA_PATH, "w") as f:
+        with open(config.EMBEDDING_METADATA_PATH, "w", encoding="utf-8") as f:
             json.dump(metadata, f)
 
     return BookRecommender(book_data=book_data, embeddings=embeddings)
@@ -258,7 +258,7 @@ def render_hero():
     """Renders the top Hero section."""
     st.markdown("""
         <div style="text-align: center; padding: 2rem 0 1rem 0;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚 BookFinder AI</h1>
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚 DeepShelf Demo</h1>
             <p style="font-size: 1.1rem; color: #6B7280;">Describe what you're craving. We'll handle the rest.</p>
         </div>
     """, unsafe_allow_html=True)

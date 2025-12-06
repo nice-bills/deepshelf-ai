@@ -1,67 +1,67 @@
-# 📚 BookFinder AI
+# 📚 Serendipity (powered by DeepShelf)
 
-> **An intelligent, semantic book recommendation engine powered by generic AI and Vector Search.**
+![Serendipity UI](https://img.shields.io/badge/Frontend-Serendipity-indigo) ![DeepShelf Engine](https://img.shields.io/badge/Engine-DeepShelf-blueviolet) ![Status](https://img.shields.io/badge/Status-Active-success)
 
-![Project Status](https://img.shields.io/badge/Status-MVP-success) ![Python](https://img.shields.io/badge/Python-3.10+-blue) ![Stack](https://img.shields.io/badge/Stack-FastAPI_|_React_|_Streamlit-orange) ![License](https://img.shields.io/badge/License-MIT-green)
+**Serendipity** is a modern book discovery interface that helps you find your next favorite story based on "vibes", plot descriptions, and semantic meaning—not just keywords.
 
-## 📖 Project Overview
-**BookFinder AI** goes beyond simple keyword matching. It uses **Natural Language Processing (NLP)** and **Vector Embeddings** to understand the *meaning* and *vibe* of your search query. Whether you're looking for "a sci-fi mystery with time travel" or "a heartbreaking story about friendship in the 1920s," BookFinder AI understands the context and retrieves the most semantically similar books from a dataset of 100,000+ titles.
+It is powered by **DeepShelf**, a custom high-performance Semantic Search Engine that understands the content of 100,000+ books using Vector Embeddings and Neural Retrieval.
 
-## 🚩 Problem Statement
-Traditional book recommendation systems often rely on:
-1.  **Collaborative Filtering:** "Users who bought X also bought Y" (requires massive user data, suffers from "cold start").
-2.  **Keyword Matching:** Fails to capture nuance (e.g., searching for "coming of age" might miss books that describe "growing up" without using that exact phrase).
-
-**The Solution:** A **Content-Based Semantic Search** engine that maps books and user queries into a shared high-dimensional vector space, allowing for nuanced, meaning-based discovery.
-
-## 🏗️ Solution Architecture
-
-The system follows a modern **Hybrid Architecture**:
-
-### 1. The Brain (ML Pipeline)
-*   **Embeddings:** uses `sentence-transformers/all-MiniLM-L6-v2` to convert book descriptions into 384-dimensional vectors.
-*   **Vector Search:** uses **FAISS (Facebook AI Similarity Search)** for ultra-fast similarity retrieval.
-*   **Clustering:** uses **K-Means** to automatically group books into thematic collections (e.g., "Space Opera", "Regency Romance").
-*   **Explainability:** Uses **Groq (Llama 3)** to generate human-readable explanations for *why* a book was recommended.
-
-### 2. The Backend (API)
-*   **Framework:** FastAPI (Python).
-*   **Features:** Async endpoints, caching (LRU + Disk), Rate Limiting.
-*   **Deployment:** Dockerized, self-healing (auto-downloads data from Hugging Face).
-
-### 3. The Frontend (UI)
-*   **Primary:** React (Vite + Tailwind CSS + TypeScript) - A modern, responsive web app.
-*   **Admin/Prototyping:** Streamlit - A dashboard for testing and analytics.
+> *"Don't search for 'fantasy books'. Search for 'a political drama about dragons where the villain is actually right'."*
 
 ---
 
-## ✨ Key Features
-*   **Semantic Search:** Query in natural language (e.g., "books like Harry Potter but darker").
-*   **Hybrid Recommendations:** Combine semantic similarity with filters (rating, genre).
-*   **AI Explanations:** "You got this recommendation because..." (Personalized insights).
-*   **Automatic Clustering:** Browse auto-generated "collections" of books.
-*   **Feedback Loop:** Users can rate recommendations to help improve the system (logged for analytics).
+## 🚀 Key Features
+
+### 🎨 Serendipity (The Experience)
+*   **Natural Language Search:** Type exactly what you're looking for in plain English.
+*   **Instant "Vibe" Checks:** See why a book was recommended (e.g., "95% Plot Match", "80% Tone Match").
+*   **Smart Personalization:** "Login" as different personas (e.g., Sci-Fi Geek, Cozy Mystery Fan) to see how recommendations adapt.
+*   **Beautiful UI:** A clean, "dark mode first" interface designed for readers.
+
+### 🧠 DeepShelf (The Engine)
+*   **Semantic Understanding:** Uses `all-MiniLM-L6-v2` (Sentence Transformers) to encode book metadata into 384-dimensional vectors.
+*   **Hybrid Retrieval:** Combines **Dense Vector Search** (FAISS) with **Keyword Filtering** for maximum accuracy.
+*   **Performance Optimized:**
+    *   **IVF-PQ Indexing:** Compresses the vector index by **48x** (150MB -> 3MB) for lightning-fast searches.
+    *   **Microservice Arch:** Runs as a standalone Dockerized API (FastAPI).
+*   **Cold Start Solved:** Can recommend books purely based on content similarity, with zero user history required.
 
 ---
 
+## 🏗️ Architecture
+
+The system consists of three main components:
+
+1.  **Frontend (`/serendipity-web`):** A React + Tailwind application.
+2.  **Books API (`/book-api`):** The gateway API that handles user requests, product data, and logic.
+3.  **DeepShelf Engine (`/deepshelf-engine`):** The dedicated vector search microservice (deployed on Hugging Face).
+
+```mermaid
+graph LR
+    User --> Frontend
+    Frontend --> BookAPI[Books API]
+    BookAPI --> DeepShelf[DeepShelf Engine]
+    DeepShelf --> FAISS[(Vector Index)]
+```
 ## 🚀 Setup Instructions
 
 ### Prerequisites
 *   Python 3.10+
 *   Node.js 18+ (for Frontend)
 *   Git
+*   Docker (Optional but recommended)
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/bookfinder-ai.git
-cd bookfinder-ai
+git clone <your-repo-url>
+cd books
 ```
 
 ### 2. Backend Setup
 It is recommended to use a virtual environment.
 
 ```bash
-# Install uv (fast pip replacement) - Optional but recommended
+# Install uv (fast pip replacement)
 pip install uv
 
 # Create and activate venv
@@ -98,7 +98,7 @@ python scripts/precompute_clusters.py
 
 ### 4. Run the Application
 
-**Start the Backend API:**
+**Start the Backend API (Port 8000):**
 ```bash
 python src/book_recommender/api/main.py
 # API will run at http://localhost:8000
@@ -111,11 +111,6 @@ cd frontend
 npm install
 npm run dev
 # UI will run at http://localhost:5173
-```
-
-**(Optional) Run the Streamlit Dashboard:**
-```bash
-streamlit run src/book_recommender/apps/main_app.py
 ```
 
 ---
@@ -148,16 +143,6 @@ curl -X POST "http://localhost:8000/recommend/query" \
 curl -X POST "http://localhost:8000/explain" \
      -d '{"query_text": "...", "recommended_book": {...}, "similarity_score": 0.85}'
 ```
-
----
-
-## 🤝 Contributing
-Contributions are welcome!
-1.  Fork the repo.
-2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
 
 ## 📄 License
 Distributed under the MIT License. See `LICENSE` for more information.

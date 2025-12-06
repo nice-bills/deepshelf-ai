@@ -73,7 +73,7 @@ class TestDataProcessor(unittest.TestCase):
     def test_malformed_csv(self):
         """Test that FileProcessingError is raised for a malformed CSV."""
         # Create a malformed CSV file
-        with open(self.raw_path, "w") as f:
+        with open(self.raw_path, "w", encoding="utf-8") as f:
             f.write('title,authors\n"Book","Author"\n"Another Book')  # Missing closing quote
 
         with self.assertRaises(FileProcessingError) as cm:

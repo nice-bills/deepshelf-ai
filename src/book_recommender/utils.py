@@ -58,9 +58,8 @@ def get_cover_url_multi_source(title: str, author: str) -> str:
     if cover:
         return cover
 
-    import random
-
-    return random.choice(PLACEHOLDER_IMAGES)
+    # Return None so the frontend can render a generated gradient cover
+    return None
 
 
 def _get_cover_from_google_books(title: str, author: str) -> Optional[str]:
