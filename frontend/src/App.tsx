@@ -304,7 +304,7 @@ function App() {
                     <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setHasSearched(false); setQuery(''); setResults([]); }}>
                       <div className="relative">
                         <div className="absolute -inset-1 bg-indigo-500/20 rounded-full blur-sm group-hover:bg-indigo-500/30 transition-colors"></div>
-                        <BookOpen className="w-8 h-8 text-indigo-600 dark:text-indigo-400 relative" />
+                        <img src="/vite.svg" alt="Logo" className="w-8 h-8 relative" />
                       </div>
                       <span className="text-zinc-900 dark:text-white font-serif text-xl tracking-normal">Serendipity</span>
                     </div>
