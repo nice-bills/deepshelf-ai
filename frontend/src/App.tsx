@@ -27,7 +27,7 @@ function App() {
 
   // Handle browser back button for modal
   useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
+    const handlePopState = () => {
       // If we have a selected result, close it (the browser back action happened)
       if (selectedResult) {
         setSelectedResult(null);
