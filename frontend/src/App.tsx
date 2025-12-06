@@ -24,6 +24,24 @@ function App() {
   const [explaining, setExplaining] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Handle browser back button for modal
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      // If we have a selected result, close it (the browser back action happened)
+      if (selectedResult) {
+        setSelectedResult(null);
+        setHistoryStack([]);
+        setExplanation(null);
+        setRelatedBooks([]);
+        // Prevent default browser navigation if possible, though usually popstate means it happened
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [selectedResult]);
+
   
   // Related Books State
   const [relatedBooks, setRelatedBooks] = useState<RecommendationResult[]>([]);
@@ -221,6 +239,12 @@ function App() {
 
   const handleReadMore = async (result: RecommendationResult, isDrillingDown = false) => {
     triggerHaptic();
+    
+    // Push history state if opening modal for the first time
+    if (!selectedResult) {
+       window.history.pushState({ modal: true }, '');
+    }
+
     if (isDrillingDown && selectedResult) {
         setHistoryStack(prev => [...prev, selectedResult]);
     } else if (!isDrillingDown) {
@@ -269,10 +293,8 @@ function App() {
   };
 
   const closeModal = () => {
-    setSelectedResult(null);
-    setHistoryStack([]);
-    setExplanation(null);
-    setRelatedBooks([]);
+    // Going back in history will trigger the popstate event, which cleans up the state
+    window.history.back();
   };
 
   const handleClusterClick = (clusterName: string) => {

@@ -25,7 +25,7 @@ export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: 
   return (
     <div 
       onClick={onClick}
-      className={`group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-col sm:flex-row gap-5 overflow-hidden ${isRead ? 'border-indigo-500/50 dark:border-indigo-500/50 ring-1 ring-indigo-500/20' : 'border-zinc-200 dark:border-zinc-800'}`}
+      className={`group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-row gap-4 sm:gap-5 overflow-hidden ${isRead ? 'border-indigo-500/50 dark:border-indigo-500/50 ring-1 ring-indigo-500/20' : 'border-zinc-200 dark:border-zinc-800'}`}
     >
       {/* Read Status Toggle (Absolute Top Right) */}
       {onToggleRead && (
@@ -39,20 +39,13 @@ export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: 
       )}
 
       {/* Cover Image Section */}
-      <div className="w-full sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
+      <div className="w-24 sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
         <BookCover 
           src={book.cover_image_url} 
           title={book.title} 
           author={book.authors?.[0] || 'Unknown Author'}
           className="w-full h-full transition-transform duration-500 group-hover:scale-105"
         />
-        
-        {/* Match Badge (Mobile Overlay) */}
-        <div className="absolute top-2 right-2 sm:hidden">
-          <span className="bg-white/90 dark:bg-black/80 backdrop-blur text-indigo-600 dark:text-indigo-400 text-[10px] font-bold px-2 py-1 rounded-full border border-black/5 dark:border-white/10 shadow-sm">
-            {percentage}% Match
-          </span>
-        </div>
       </div>
 
       {/* Content Section */}
@@ -61,8 +54,8 @@ export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: 
           <h2 className="text-xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 font-serif tracking-tight">
             {book.title}
           </h2>
-          {/* Desktop Match Badge */}
-          <span className="hidden sm:inline-flex text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-1 rounded-full whitespace-nowrap items-center gap-1">
+          {/* Match Badge */}
+          <span className="inline-flex text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-1 rounded-full whitespace-nowrap items-center gap-1">
             <Sparkles className="w-3 h-3" />
             {percentage}%
           </span>
