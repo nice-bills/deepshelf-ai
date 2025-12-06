@@ -27,6 +27,16 @@ export function BookCard({ result, isRead, onToggleRead, onClick, onFeedback }: 
       onClick={onClick}
       className={`group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm border rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-[0.99] animate-slide-up h-full flex flex-row gap-4 sm:gap-5 overflow-hidden ${isRead ? 'border-indigo-500/50 dark:border-indigo-500/50 ring-1 ring-indigo-500/20' : 'border-zinc-200 dark:border-zinc-800'}`}
     >
+      {/* Cover Image Section */}
+      <div className="w-24 sm:w-28 aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden relative shadow-inner shrink-0 border border-zinc-100 dark:border-zinc-700">
+        <BookCover 
+          src={book.cover_image_url} 
+          title={book.title} 
+          author={book.authors?.[0] || 'Unknown Author'}
+          className="w-full h-full transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+
       {/* Content Section */}
       <div className="space-y-2.5 flex-1 min-w-0 flex flex-col">
         <div className="flex justify-between items-start gap-3">
