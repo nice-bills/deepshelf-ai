@@ -24,106 +24,6 @@ function App() {
   const [explaining, setExplaining] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-
-  // Handle browser back button for modal and search state
-  useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
-      // Priority 1: Close Modal
-      if (selectedResult) {
-        setSelectedResult(null);
-        setHistoryStack([]);
-        setExplanation(null);
-        setRelatedBooks([]);
-        return;
-      }
-      
-      // Priority 2: Return to Home from Search
-      // We check if we are currently showing results. If the popstate happened, it means we went back.
-      // Ideally we check event.state, but simple logic: if we have searched, clear it.
-      if (hasSearched) {
-        setHasSearched(false);
-        setQuery('');
-        setResults([]);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [selectedResult, hasSearched]);
-
-  // ... (rest of code)
-
-  const handlePersonalize = async () => {
-      // ...
-      triggerHaptic();
-      if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
-      setLoading(true);
-      setHasSearched(true);
-      // ...
-  };
-
-  const handlePersonaSelect = (persona: typeof DEMO_PERSONAS[0]) => {
-    triggerHaptic();
-    setReadHistory(persona.history);
-    showToast(`Switched to ${persona.name} mode`);
-    
-    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
-    setLoading(true);
-    setHasSearched(true);
-    // ...
-  };
-
-  // ... 
-
-  const handleSearch = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!query.trim()) return;
-    triggerHaptic();
-    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
-    setLoading(true);
-    // ...
-  };
-
-  const handleQuickSearch = (text: string) => {
-    setQuery(text);
-    triggerHaptic();
-    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
-    setLoading(true);
-    // ...
-  };
-  
-  const handleClusterClick = (clusterName: string) => {
-    triggerHaptic();
-    setQuery(clusterName);
-    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
-    setLoading(true);
-    // ...
-  };
-
-  // ... (Update Modal Layout in render)
-  // Inside Modal:
-  /*
-   <div className="relative h-48 sm:h-64 w-full overflow-hidden shrink-0">
-      <div className="absolute inset-0 bg-zinc-200 dark:bg-zinc-800" />
-      <img src={selectedResult.book.cover_image_url} className="absolute inset-0 w-full h-full object-cover blur-xl opacity-50 dark:opacity-40 scale-110" />
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent dark:from-zinc-900 dark:via-zinc-900/50" />
-      
-      <div className="absolute bottom-0 left-0 right-0 p-6 flex gap-5 items-end translate-y-4 sm:translate-y-0">
-         <div className="w-24 sm:w-32 aspect-[2/3] rounded-lg shadow-2xl border-2 border-white dark:border-zinc-700 overflow-hidden shrink-0 bg-zinc-100 dark:bg-zinc-800">
-            <BookCover src={selectedResult.book.cover_image_url} title={selectedResult.book.title} author={selectedResult.book.authors[0]} className="w-full h-full" />
-         </div>
-      </div>
-   </div>
-   
-   <div className="px-6 pt-2 pb-8 sm:p-8 sm:pt-4 space-y-6">
-      <div className="ml-[calc(6rem+1.25rem)] sm:ml-0 -mt-8 sm:mt-0">
-         <h2 className="text-2xl sm:text-4xl font-bold font-serif leading-tight text-zinc-900 dark:text-white drop-shadow-sm sm:drop-shadow-none">{selectedResult.book.title}</h2>
-         <p className="text-sm sm:text-lg text-zinc-600 dark:text-zinc-400 font-medium mt-1">by {selectedResult.book.authors.join(', ')}</p>
-      </div>
-      ...
-   </div>
-  */
-
   
   // Related Books State
   const [relatedBooks, setRelatedBooks] = useState<RecommendationResult[]>([]);
@@ -154,6 +54,30 @@ function App() {
     }
   }, [selectedResult]);
 
+  // Handle browser back button for modal and search state
+  useEffect(() => {
+    const handlePopState = () => {
+      // Priority 1: Close Modal
+      if (selectedResult) {
+        setSelectedResult(null);
+        setHistoryStack([]);
+        setExplanation(null);
+        setRelatedBooks([]);
+        return;
+      }
+      
+      // Priority 2: Return to Home from Search
+      if (hasSearched) {
+        setHasSearched(false);
+        setQuery('');
+        setResults([]);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [selectedResult, hasSearched]);
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('bookfinder_theme_mode');
     if (savedTheme) {
@@ -175,6 +99,31 @@ function App() {
   useEffect(() => {
     localStorage.setItem('bookfinder_read_history', JSON.stringify(readHistory));
   }, [readHistory]);
+
+  useEffect(() => {
+    const fetchClusters = async () => {
+      try {
+        const data = await api.getClusters();
+        setClusters(data.slice(0, 6));
+      } catch (err) {
+        console.error("Failed to fetch clusters", err);
+      } finally {
+        setLoadingClusters(false);
+      }
+    };
+    fetchClusters();
+  }, []);
+
+  const triggerHaptic = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+  };
+
+  const showToast = (message: string) => {
+    setToast({ message, visible: true });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const toggleReadBook = (title: string) => {
       setReadHistory(prev => {
@@ -232,49 +181,6 @@ function App() {
        .finally(() => setLoading(false));
   };
 
-  const toggleTheme = async (e: React.MouseEvent) => {
-    const isDark = !darkMode;
-    if (!(document as any).startViewTransition) {
-      setDarkMode(isDark);
-      return;
-    }
-    const x = e.clientX;
-    const y = e.clientY;
-    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
-    const transition = (document as any).startViewTransition(() => setDarkMode(isDark));
-    await transition.ready;
-    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
-    document.documentElement.animate(
-      { clipPath: isDark ? clipPath : [...clipPath].reverse() },
-      { duration: 500, easing: 'ease-in-out', pseudoElement: isDark ? '::view-transition-new(root)' : '::view-transition-old(root)' }
-    );
-  };
-
-  const triggerHaptic = () => {
-    if (typeof navigator !== 'undefined' && navigator.vibrate) {
-      navigator.vibrate(10);
-    }
-  };
-
-  useEffect(() => {
-    const fetchClusters = async () => {
-      try {
-        const data = await api.getClusters();
-        setClusters(data.slice(0, 6));
-      } catch (err) {
-        console.error("Failed to fetch clusters", err);
-      } finally {
-        setLoadingClusters(false);
-      }
-    };
-    fetchClusters();
-  }, []);
-
-  const showToast = (message: string) => {
-    setToast({ message, visible: true });
-    setTimeout(() => setToast(null), 3000);
-  };
-
   const handleSearch = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!query.trim()) return;
@@ -313,6 +219,16 @@ function App() {
     });
   };
 
+  const handleClusterClick = (clusterName: string) => {
+    triggerHaptic();
+    setQuery(clusterName);
+    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
+    setLoading(true);
+    setHasSearched(true);
+    setResults([]);
+    api.recommendByQuery(clusterName).then(setResults).catch(console.error).finally(() => setLoading(false));
+  };
+
   const handleFeedback = async (bookId: string, type: 'positive' | 'negative') => {
       triggerHaptic();
       try {
@@ -326,7 +242,6 @@ function App() {
   const handleReadMore = async (result: RecommendationResult, isDrillingDown = false) => {
     triggerHaptic();
     
-    // Push history state if opening modal for the first time
     if (!selectedResult) {
        window.history.pushState({ modal: true }, '');
     }
@@ -379,18 +294,25 @@ function App() {
   };
 
   const closeModal = () => {
-    // Going back in history will trigger the popstate event, which cleans up the state
     window.history.back();
   };
 
-  const handleClusterClick = (clusterName: string) => {
-    triggerHaptic();
-    setQuery(clusterName);
-    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
-    setLoading(true);
-    setHasSearched(true);
-    setResults([]);
-    api.recommendByQuery(clusterName).then(setResults).catch(console.error).finally(() => setLoading(false));
+  const toggleTheme = async (e: React.MouseEvent) => {
+    const isDark = !darkMode;
+    if (!(document as any).startViewTransition) {
+      setDarkMode(isDark);
+      return;
+    }
+    const x = e.clientX;
+    const y = e.clientY;
+    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    const transition = (document as any).startViewTransition(() => setDarkMode(isDark));
+    await transition.ready;
+    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+    document.documentElement.animate(
+      { clipPath: isDark ? clipPath : [...clipPath].reverse() },
+      { duration: 500, easing: 'ease-in-out', pseudoElement: isDark ? '::view-transition-new(root)' : '::view-transition-old(root)' }
+    );
   };
 
   return (
