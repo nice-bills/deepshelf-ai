@@ -589,19 +589,19 @@ function App() {
                   <div className="pt-8 border-t border-dashed border-zinc-200 dark:border-zinc-800">
                     <h3 className="text-xs font-bold text-zinc-400 dark:text-zinc-500 mb-4 uppercase tracking-widest">You might also like</h3>
                     {loadingRelated ? (
-                        <div className="flex gap-4">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="w-32 h-48 bg-zinc-100 dark:bg-zinc-800 rounded-xl animate-pulse" />
+                        <div className="flex gap-4 overflow-hidden">
+                            {[1, 2, 3, 4].map(i => (
+                                <div key={i} className="w-28 h-40 bg-zinc-100 dark:bg-zinc-800 rounded-xl animate-pulse shrink-0" />
                             ))}
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 sm:mx-0 sm:px-0 no-scrollbar snap-x snap-mandatory">
                             {relatedBooks.map(rel => (
-                                <div key={rel.book.id} onClick={() => handleReadMore(rel)} className="group cursor-pointer active:scale-95 transition-transform">
+                                <div key={rel.book.id} onClick={() => handleReadMore(rel, true)} className="group cursor-pointer active:scale-95 transition-transform w-28 sm:w-32 shrink-0 snap-start">
                                     <div className="aspect-[2/3] bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden mb-2 relative shadow-sm group-hover:shadow-md transition-all border border-zinc-100 dark:border-zinc-700">
                                         <BookCover src={rel.book.cover_image_url} title={rel.book.title} author={rel.book.authors[0]} className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
                                     </div>
-                                    <h4 className="text-xs font-bold leading-tight text-zinc-800 dark:text-zinc-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">{rel.book.title}</h4>
+                                    <h4 className="text-xs font-bold leading-tight text-zinc-800 dark:text-zinc-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">{rel.book.title}</h4>
                                     <p className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-0.5 truncate">{rel.book.authors[0]}</p>
                                 </div>
                             ))}
