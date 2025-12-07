@@ -25,22 +25,104 @@ function App() {
   const [showAbout, setShowAbout] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Handle browser back button for modal
+  // Handle browser back button for modal and search state
   useEffect(() => {
-    const handlePopState = () => {
-      // If we have a selected result, close it (the browser back action happened)
+    const handlePopState = (event: PopStateEvent) => {
+      // Priority 1: Close Modal
       if (selectedResult) {
         setSelectedResult(null);
         setHistoryStack([]);
         setExplanation(null);
         setRelatedBooks([]);
-        // Prevent default browser navigation if possible, though usually popstate means it happened
+        return;
+      }
+      
+      // Priority 2: Return to Home from Search
+      // We check if we are currently showing results. If the popstate happened, it means we went back.
+      // Ideally we check event.state, but simple logic: if we have searched, clear it.
+      if (hasSearched) {
+        setHasSearched(false);
+        setQuery('');
+        setResults([]);
       }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [selectedResult]);
+  }, [selectedResult, hasSearched]);
+
+  // ... (rest of code)
+
+  const handlePersonalize = async () => {
+      // ...
+      triggerHaptic();
+      if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
+      setLoading(true);
+      setHasSearched(true);
+      // ...
+  };
+
+  const handlePersonaSelect = (persona: typeof DEMO_PERSONAS[0]) => {
+    triggerHaptic();
+    setReadHistory(persona.history);
+    showToast(`Switched to ${persona.name} mode`);
+    
+    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
+    setLoading(true);
+    setHasSearched(true);
+    // ...
+  };
+
+  // ... 
+
+  const handleSearch = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!query.trim()) return;
+    triggerHaptic();
+    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
+    setLoading(true);
+    // ...
+  };
+
+  const handleQuickSearch = (text: string) => {
+    setQuery(text);
+    triggerHaptic();
+    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
+    setLoading(true);
+    // ...
+  };
+  
+  const handleClusterClick = (clusterName: string) => {
+    triggerHaptic();
+    setQuery(clusterName);
+    if (!hasSearched) window.history.pushState({ view: 'results' }, ''); // Push state
+    setLoading(true);
+    // ...
+  };
+
+  // ... (Update Modal Layout in render)
+  // Inside Modal:
+  /*
+   <div className="relative h-48 sm:h-64 w-full overflow-hidden shrink-0">
+      <div className="absolute inset-0 bg-zinc-200 dark:bg-zinc-800" />
+      <img src={selectedResult.book.cover_image_url} className="absolute inset-0 w-full h-full object-cover blur-xl opacity-50 dark:opacity-40 scale-110" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent dark:from-zinc-900 dark:via-zinc-900/50" />
+      
+      <div className="absolute bottom-0 left-0 right-0 p-6 flex gap-5 items-end translate-y-4 sm:translate-y-0">
+         <div className="w-24 sm:w-32 aspect-[2/3] rounded-lg shadow-2xl border-2 border-white dark:border-zinc-700 overflow-hidden shrink-0 bg-zinc-100 dark:bg-zinc-800">
+            <BookCover src={selectedResult.book.cover_image_url} title={selectedResult.book.title} author={selectedResult.book.authors[0]} className="w-full h-full" />
+         </div>
+      </div>
+   </div>
+   
+   <div className="px-6 pt-2 pb-8 sm:p-8 sm:pt-4 space-y-6">
+      <div className="ml-[calc(6rem+1.25rem)] sm:ml-0 -mt-8 sm:mt-0">
+         <h2 className="text-2xl sm:text-4xl font-bold font-serif leading-tight text-zinc-900 dark:text-white drop-shadow-sm sm:drop-shadow-none">{selectedResult.book.title}</h2>
+         <p className="text-sm sm:text-lg text-zinc-600 dark:text-zinc-400 font-medium mt-1">by {selectedResult.book.authors.join(', ')}</p>
+      </div>
+      ...
+   </div>
+  */
 
   
   // Related Books State
@@ -113,6 +195,7 @@ function App() {
           return;
       }
       triggerHaptic();
+      if (!hasSearched) window.history.pushState({ view: 'results' }, '');
       setLoading(true);
       setHasSearched(true);
       setResults([]);
@@ -134,6 +217,7 @@ function App() {
     setReadHistory(persona.history);
     showToast(`Switched to ${persona.name} mode`);
     
+    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
     setLoading(true);
     setHasSearched(true);
     setResults([]);
@@ -195,6 +279,7 @@ function App() {
     if (e) e.preventDefault();
     if (!query.trim()) return;
     triggerHaptic();
+    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
     setLoading(true);
     setLongLoading(false);
     setHasSearched(true);
@@ -215,6 +300,7 @@ function App() {
   const handleQuickSearch = (text: string) => {
     setQuery(text);
     triggerHaptic();
+    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
     setLoading(true);
     setLongLoading(false);
     setHasSearched(true);
@@ -300,6 +386,7 @@ function App() {
   const handleClusterClick = (clusterName: string) => {
     triggerHaptic();
     setQuery(clusterName);
+    if (!hasSearched) window.history.pushState({ view: 'results' }, '');
     setLoading(true);
     setHasSearched(true);
     setResults([]);
@@ -342,8 +429,8 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 pb-24 relative z-10">
-        <div className={`transition-all duration-700 ease-out ${hasSearched ? 'py-10' : 'py-28'}`}>
+      <main className="max-w-3xl mx-auto px-6 pb-12 relative z-10">
+        <div className={`transition-all duration-700 ease-out ${hasSearched ? 'py-8' : 'py-24'}`}>
           {!hasSearched && (
             <div className="text-center mb-10 animate-fade-in">
               <h1 className="text-5xl sm:text-7xl font-black tracking-tighter mb-6 text-zinc-900 dark:text-white font-serif">
@@ -483,7 +570,7 @@ function App() {
           )}
         </div>
 
-        <div className="space-y-6 min-h-[50vh]">
+        <div className="space-y-6 min-h-[30vh]">
           {loading && results.length === 0 ? (
              <div className="animate-fade-in pt-10">
                 <Loader />
@@ -522,16 +609,22 @@ function App() {
                     <span className="text-xs font-bold">Back</span>
                 </button>
             )}
-            <div className="grid sm:grid-cols-[220px_1fr] gap-0 sm:gap-8">
-               <div className="bg-zinc-100 dark:bg-zinc-800 h-64 sm:h-auto sm:aspect-[2/3] relative overflow-hidden">
-                  <BookCover src={selectedResult.book.cover_image_url} title={selectedResult.book.title} author={selectedResult.book.authors[0]} className="w-full h-full" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent sm:hidden"></div>
-                  <h2 className="absolute bottom-4 left-4 right-4 text-2xl font-bold font-serif text-white sm:hidden leading-tight shadow-black drop-shadow-md">{selectedResult.book.title}</h2>
+            <div>
+               <div className="relative h-48 sm:h-64 w-full overflow-hidden shrink-0 bg-zinc-100 dark:bg-zinc-800">
+                  <img src={selectedResult.book.cover_image_url} alt="" className="absolute inset-0 w-full h-full object-cover blur-xl opacity-50 dark:opacity-40 scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-zinc-900 dark:via-zinc-900/60" />
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-6 flex gap-5 items-end translate-y-8 sm:translate-y-10">
+                     <div className="w-28 sm:w-32 aspect-[2/3] rounded-lg shadow-2xl border-2 border-white dark:border-zinc-700 overflow-hidden shrink-0 bg-zinc-100 dark:bg-zinc-800 relative z-10">
+                        <BookCover src={selectedResult.book.cover_image_url} title={selectedResult.book.title} author={selectedResult.book.authors[0]} className="w-full h-full" />
+                     </div>
+                  </div>
                </div>
-               <div className="p-6 sm:pl-0 sm:py-8 space-y-6">
-                  <div className="hidden sm:block">
-                    <h2 className="text-3xl sm:text-4xl font-bold font-serif leading-tight mb-2 text-zinc-900 dark:text-white">{selectedResult.book.title}</h2>
-                    <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">by {selectedResult.book.authors.join(', ')}</p>
+               
+               <div className="px-6 pt-10 pb-8 sm:px-8 sm:pt-12 space-y-6">
+                  <div className="sm:pl-40 -mt-2 sm:-mt-20 mb-8 relative z-10">
+                    <h2 className="text-2xl sm:text-4xl font-bold font-serif leading-tight text-zinc-900 dark:text-white">{selectedResult.book.title}</h2>
+                    <p className="text-sm sm:text-lg text-zinc-600 dark:text-zinc-400 font-medium mt-1">by {selectedResult.book.authors.join(', ')}</p>
                   </div>
                   <div className="prose prose-zinc dark:prose-invert prose-sm max-w-none leading-relaxed">
                     <p>{selectedResult.book.description}</p>
