@@ -351,7 +351,7 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 pb-12 relative z-10">
+      <main className="max-w-3xl mx-auto px-6 pb-6 relative z-10">
         <div className={`transition-all duration-700 ease-out ${hasSearched ? 'py-8' : 'py-24'}`}>
           {!hasSearched && (
             <div className="text-center mb-10 animate-fade-in">
